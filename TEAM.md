@@ -14,7 +14,7 @@
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 |---:|---|---|---|---|---|
 | 1 | Đinh Phúc Diên | 2A202603876 | dinhphucdien179@gmail.com | [dinhphucdien179](https://github.com/dinhphucdien179) | Cấu hình, vận hành, kiểm thử và hoàn thiện bài với AI hỗ trợ |
-
+| 2 | Đào Văn Hiệp | 2A202603813 | 26ai.hiepdv3@vinuni.edu.vn | https://github.com/daohiep2903 | CP2 |
 ## Đinh Phúc Diên — 2A202603876
 
 ### Phần việc trực tiếp thực hiện
@@ -41,3 +41,19 @@ bên dưới. Nội dung có AI hỗ trợ được công khai trong báo cáo c
 - [Group eval: 9/10](starter_v0/runs/v4_B_group_openrouter_20261110T213941166369.json)
 - [Transcript tương tác: 5 lượt](starter_v0/transcripts/v4_openrouter_20261110T214232005322.transcript.json)
 - [Version log](starter_v0/artifacts/version_log.csv)
+- 
+## Đào Văn Hiệp — 2A202603813
+
+### Phần việc phụ trách
+
+- CP2: tối ưu prompt và tool declaration v1–v3.
+
+### Đóng góp cụ thể
+
+- CP2 đạt case accuracy 65% → 75% → 90% → 90%; lưu snapshot, hash, giả thuyết và phân tích lỗi. V3 không tăng tổng accuracy so với v2.
+- Codex hỗ trợ code, chạy kiểm tra và soạn báo cáo; thành viên bổ sung việc tự kiểm tra thực tế. Chưa có public URL hoặc người ngoài nhóm dùng thử.
+
+### Bằng chứng
+
+- [Báo cáo cá nhân](report/team/2A202603813_DaoVanHiep.md).
+- [CP2](starter_v0/analysis/CP2_REPORT.md), [version log](starter_v0/artifacts/version_log.csv).
