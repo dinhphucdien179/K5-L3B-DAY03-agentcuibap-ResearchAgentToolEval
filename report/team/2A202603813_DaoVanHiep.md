@@ -4,7 +4,7 @@
 
 - Họ tên: Đào Văn Hiệp
 - MSSV: 2A202603813
-- Email: daohiep302@gmail.com
+- Email: 26ai.hiepdv3@vinuni.edu.vn
 - GitHub: https://github.com/daohiep2903
 
 ## 2. Phần việc phụ trách
