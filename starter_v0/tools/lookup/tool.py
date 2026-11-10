@@ -5,15 +5,16 @@ from typing import Any
 
 import requests
 
-from tools._shared import TIMEOUT, domain, err
+from tools._shared import TIMEOUT, domain, err, positive_int
 
 
 def web_search(query: str = "", topic: str = "general", timeframe: str | None = "week", max_results: int = 5) -> dict[str, Any]:
     try:
+        max_results = positive_int(max_results, "max_results")
         key = os.getenv("TAVILY_API_KEY")
         if not key:
             raise RuntimeError("Missing TAVILY_API_KEY env var")
-        body: dict[str, Any] = {"query": query, "topic": topic, "max_results": int(max_results or 5), "search_depth": "basic"}
+        body: dict[str, Any] = {"query": query, "topic": topic, "max_results": max_results, "search_depth": "basic"}
         if timeframe:
             body["time_range"] = timeframe
         response = requests.post(

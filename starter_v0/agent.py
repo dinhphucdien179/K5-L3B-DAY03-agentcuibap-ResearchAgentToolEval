@@ -5,6 +5,7 @@ from typing import Any
 
 from providers.base import Provider, ToolCall
 from tools import TOOL_FUNCTIONS
+from runtime import execute_tool_call
 
 
 @dataclass
@@ -43,9 +44,6 @@ class ResearchAgent:
             if not func:
                 results.append({"tool": call.name, "error": "unknown_tool"})
                 continue
-            try:
-                result = func(**call.args)
-            except Exception as exc:  # keep eval robust; failures are evidence
-                result = {"error": type(exc).__name__, "message": str(exc)}
-            results.append({"tool": call.name, "args": call.args, "result": result})
+            # Eval never authorizes external delivery from model args alone.
+            results.append(execute_tool_call(call))
         return AgentRun(text=response.text, tool_calls=response.tool_calls, tool_results=results)

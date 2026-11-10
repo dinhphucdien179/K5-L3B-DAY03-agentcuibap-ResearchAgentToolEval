@@ -15,6 +15,13 @@ def err(tool: str, exc: Exception) -> dict[str, Any]:
     return {"tool": tool, "error": type(exc).__name__, "message": str(exc)}
 
 
+def positive_int(value: Any, name: str) -> int:
+    """Reject malformed model arguments before using them in slicing or HTTP."""
+    if type(value) is not int or value < 1:
+        raise ValueError(f"{name} must be a positive integer")
+    return value
+
+
 def domain(url: str) -> str:
     try:
         return urlparse(url).netloc.replace("www.", "")

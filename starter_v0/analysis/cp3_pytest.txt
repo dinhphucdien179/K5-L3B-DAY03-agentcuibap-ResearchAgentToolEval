@@ -1,0 +1,6 @@
+CP3 verification summary
+Command (from starter_v0): conda run -n AI20k python -m pytest -q
+Observed result: 108 passed, 14 skipped in 0.41s
+0 failed. Remaining skips are starter tests for existing tools.
+New-tool tests: deduplicate 13 cases; investigate 23 cases.
+All HTTP mocked; no live API evaluation in this verification.

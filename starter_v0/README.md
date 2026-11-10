@@ -9,3 +9,7 @@ Toàn bộ source code của lab nằm trong folder này. Chạy mọi lệnh t�
 - File học viên được sửa: `artifacts/system_prompt.md`, `artifacts/tools.yaml`, `artifacts/version_log.csv`, `data/eval_group.json`, `tools/` (thêm tool mới và đăng ký trong `tools/__init__.py`), `tests/test_tools_todo.py`, code UI và `requirements.txt`. Không sửa nội dung case trong `data/eval_base.json`.
 
 Chi tiết từng bước xem [README.md](../README.md) ở root; cấu hình API key xem [docs/TOOL-SETUP.md](../docs/TOOL-SETUP.md).
+
+## Research Studio hoàn thiện
+
+Xem [RUNBOOK.md](RUNBOOK.md) để chạy UI bằng Conda AI20k, mở link demo, chạy test/eval/chat và tái lập evidence. Bản prompt hiện tại là v4; snapshot v1–v4 nằm trong artifacts/versions/.

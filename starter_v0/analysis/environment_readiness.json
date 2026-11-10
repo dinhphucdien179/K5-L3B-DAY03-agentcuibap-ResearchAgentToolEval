@@ -1,0 +1,11 @@
+{
+  "conda_env": "AI20k",
+  "provider": "openrouter",
+  "preflight": "passed",
+  "telegram_configured": false,
+  "telegram_live_send": "not_run_missing_bot_token_and_chat_id",
+  "ollama_binary_available": false,
+  "ollama_localhost_11434_reachable": false,
+  "local_model_challenge": "not_run_missing_runtime_and_models",
+  "note": "Readiness verified during implementation; contains no API key values."
+}

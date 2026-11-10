@@ -8,7 +8,7 @@ from typing import Any
 
 import requests
 
-from tools._shared import ROOT, TIMEOUT, err
+from tools._shared import ROOT, TIMEOUT, err, positive_int
 
 
 ARXIV_DIR = ROOT / "arxiv_papers"
@@ -58,7 +58,7 @@ def _extract_pdf_text(pdf_path: Path, max_pages: int) -> tuple[str, int]:
 
     reader = PdfReader(str(pdf_path))
     page_count = len(reader.pages)
-    pages_to_read = min(max(1, int(max_pages or 5)), page_count)
+    pages_to_read = min(positive_int(max_pages, "max_pages"), page_count)
     parts: list[str] = []
     for page in reader.pages[:pages_to_read]:
         parts.append(page.extract_text() or "")
@@ -67,9 +67,10 @@ def _extract_pdf_text(pdf_path: Path, max_pages: int) -> tuple[str, int]:
 
 def get_arxiv_paper_text(arxiv_url: str = "", max_pages: int = 5, max_chars: int = 8000) -> dict[str, Any]:
     try:
+        max_pages = positive_int(max_pages, "max_pages")
+        max_chars = max(1000, min(positive_int(max_chars, "max_chars"), 20000))
         arxiv_id, pdf_path, pdf_url = _download_arxiv_pdf(arxiv_url)
         text, page_count = _extract_pdf_text(pdf_path, max_pages=max_pages)
-        max_chars = max(1000, min(int(max_chars or 8000), 20000))
         excerpt = text[:max_chars]
         txt_path = pdf_path.with_suffix(".txt")
         txt_path.write_text(excerpt, encoding="utf-8")
@@ -81,7 +82,7 @@ def get_arxiv_paper_text(arxiv_url: str = "", max_pages: int = 5, max_chars: int
             "pdf_path": str(pdf_path),
             "txt_path": str(txt_path),
             "page_count": page_count,
-            "pages_read": min(max(1, int(max_pages or 5)), page_count),
+            "pages_read": min(max_pages, page_count),
             "chars_returned": len(excerpt),
             "items": [{
                 "title": f"arXiv paper {arxiv_id}",

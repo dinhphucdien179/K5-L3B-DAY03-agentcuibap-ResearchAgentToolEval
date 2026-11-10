@@ -1,0 +1,1085 @@
+{
+  "generated_at": "2026-11-10T21:41:01+07:00",
+  "selection_policy": "Latest valid run per version and suite, ordered by recorded generated_at then filename; not highest accuracy. Invalid provider runs and superseded valid runs remain on disk and are listed as excluded.",
+  "validity_rule": "total_cases > 0; measured_cases == total_cases; provider_error_cases == 0; per-case results/counts/accuracy agree; full SHA-256 prompt/tools hashes exist.",
+  "metric_scope": "run_eval measures routing and argument matching. Its passed_cases do not imply successful APIs, factual accuracy, or a complete conversation.",
+  "change_log_note": "Change descriptions/hypotheses are documented retrospectively from actual snapshots and saved runs, not pre-registered experiments. v1 also changed the tool set; improvement cannot be attributed to the prompt alone.",
+  "author": "Đinh Phúc Diên (AI-assisted implementation)",
+  "original_tools_provenance": {
+    "available": true,
+    "git_object": "HEAD:starter_v0/artifacts/tools.yaml",
+    "commit": "c68da4cdb50c118c9f00622bd72e6cd7afc57b18",
+    "sha256": "41a2894f8ad1b5f1af946a1ebd34dc809faa05f187393d1fb770540a67c9074a",
+    "note": "Hash read directly from the existing Git object; no original tools snapshot was fabricated."
+  },
+  "eval_base_sha256": "c917b3606e88643c27a479c43236f76ffa701ff271aa6d24c30e223fefd72c44",
+  "selected_runs": [
+    {
+      "version": "v0",
+      "suite": "base",
+      "run_file": "runs/v0_B_base_openrouter_20261110T185819400914.json",
+      "run_id": "v0_B_base_openrouter_20261110T185819400914",
+      "generated_at": "2026-11-10T18:58:19",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "artifact_version": "v0+pf0c107a9d7a1+t41a2894f8ad1",
+      "prompt_hash": "f0c107a9d7a14032c948d642d7c36f2a85cb6d69a099530093a874c94d472446",
+      "tools_hash": "41a2894f8ad1b5f1af946a1ebd34dc809faa05f187393d1fb770540a67c9074a",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 13,
+        "case_accuracy": 0.65,
+        "tool_routing_accuracy": 0.75,
+        "argument_accuracy": 0.65,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {
+          "wrong_tool": 2,
+          "out_of_scope": 2,
+          "missing_info": 2,
+          "wrong_boundary": 1
+        },
+        "observed_mismatch_counts": {
+          "wrong_arg_value": 2,
+          "unexpected_tool_call": 2,
+          "missing_tool_call": 3
+        }
+      },
+      "failure_cases": [
+        {
+          "case_id": "R03_web_news_routing",
+          "failure_type": "wrong_tool",
+          "observed_mismatch": "wrong_arg_value",
+          "failures": [
+            "query: expected 'AI', got 'AI news'"
+          ]
+        },
+        {
+          "case_id": "R08_out_of_scope",
+          "failure_type": "out_of_scope",
+          "observed_mismatch": "unexpected_tool_call",
+          "failures": [
+            "expected no tool call"
+          ]
+        },
+        {
+          "case_id": "R10_missing_handle",
+          "failure_type": "missing_info",
+          "observed_mismatch": "missing_tool_call",
+          "failures": [
+            "missing tool call clarify",
+            "extra tool call timeline"
+          ]
+        },
+        {
+          "case_id": "R11_missing_url",
+          "failure_type": "missing_info",
+          "observed_mismatch": "missing_tool_call",
+          "failures": [
+            "missing tool call clarify",
+            "extra tool call fetch"
+          ]
+        },
+        {
+          "case_id": "R12_confirm_before_send",
+          "failure_type": "wrong_boundary",
+          "observed_mismatch": "missing_tool_call",
+          "failures": [
+            "missing tool call clarify",
+            "extra tool call send"
+          ]
+        },
+        {
+          "case_id": "R13_parallel_web_and_tweets",
+          "failure_type": "wrong_tool",
+          "observed_mismatch": "wrong_arg_value",
+          "failures": [
+            "query: expected 'AI', got 'AI news'",
+            "topic: expected 'news', got None"
+          ]
+        },
+        {
+          "case_id": "R14_out_of_scope_coding",
+          "failure_type": "out_of_scope",
+          "observed_mismatch": "unexpected_tool_call",
+          "failures": [
+            "expected no tool call"
+          ]
+        }
+      ],
+      "tool_health": {
+        "executed_tool_calls": 20,
+        "tool_error_calls": 9,
+        "tool_error_case_count": 9,
+        "tool_error_case_ids": [
+          "M01_clarify_then_fill",
+          "M03_correction_handle",
+          "M05_correction_limit",
+          "R01_user_tweets_routing",
+          "R02_search_tweets_routing",
+          "R05_limit_arg",
+          "R07_search_type_arg",
+          "R10_missing_handle",
+          "R13_parallel_web_and_tweets"
+        ],
+        "partial_tool_calls": 0,
+        "partial_case_ids": [],
+        "nested_search_error_count": 0,
+        "errors_by_tool": {
+          "timeline": 6,
+          "social_search": 3
+        },
+        "http_status_counts": {
+          "403": 8,
+          "429": 1
+        },
+        "error_details": [
+          {
+            "case_id": "R01_user_tweets_routing",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R02_search_tweets_routing",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 429,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R05_limit_arg",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R07_search_type_arg",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R10_missing_handle",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R13_parallel_web_and_tweets",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M01_clarify_then_fill",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M03_correction_handle",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M05_correction_limit",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          }
+        ],
+        "note": "Routing/argument scores do not measure external tool success. Tool errors are reported separately and do not invalidate a fully measured provider run."
+      },
+      "snapshot_provenance": {
+        "run_hashes_are_authoritative": true,
+        "prompt": {
+          "snapshot_file": "artifacts/versions/system_prompt_v0.md",
+          "recorded_hash": "f0c107a9d7a14032c948d642d7c36f2a85cb6d69a099530093a874c94d472446",
+          "snapshot_hash": "f0c107a9d7a14032c948d642d7c36f2a85cb6d69a099530093a874c94d472446",
+          "matches_snapshot": true
+        },
+        "tools": {
+          "snapshot_file": null,
+          "recorded_hash": "41a2894f8ad1b5f1af946a1ebd34dc809faa05f187393d1fb770540a67c9074a",
+          "git_original_hash": "41a2894f8ad1b5f1af946a1ebd34dc809faa05f187393d1fb770540a67c9074a",
+          "matches_git_original": true
+        }
+      }
+    },
+    {
+      "version": "v1",
+      "suite": "base",
+      "run_file": "runs/v1_B_base_openrouter_20261110T191733245712.json",
+      "run_id": "v1_B_base_openrouter_20261110T191733245712",
+      "generated_at": "2026-11-10T19:17:33",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "artifact_version": "v1+pbbe91757ae3b+t87ed98d75509",
+      "prompt_hash": "bbe91757ae3bed8e239fe7d46a8ab1e49d8661e2044f70dfe3d9b761c58add3b",
+      "tools_hash": "87ed98d75509992e885acf04aaa638b1ebf3251d25ad22f8e8bd818dbb60237c",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 15,
+        "case_accuracy": 0.75,
+        "tool_routing_accuracy": 0.9,
+        "argument_accuracy": 0.75,
+        "multiturn_accuracy": 0.8333,
+        "failure_counts": {
+          "wrong_tool": 3,
+          "missing_info": 1,
+          "wrong_boundary": 1
+        },
+        "observed_mismatch_counts": {
+          "wrong_arg_value": 3,
+          "missing_tool_call": 2
+        }
+      },
+      "failure_cases": [
+        {
+          "case_id": "R03_web_news_routing",
+          "failure_type": "wrong_tool",
+          "observed_mismatch": "wrong_arg_value",
+          "failures": [
+            "query: expected 'AI', got 'AI news'"
+          ]
+        },
+        {
+          "case_id": "R10_missing_handle",
+          "failure_type": "missing_info",
+          "observed_mismatch": "missing_tool_call",
+          "failures": [
+            "missing tool call clarify",
+            "extra tool call timeline"
+          ]
+        },
+        {
+          "case_id": "R12_confirm_before_send",
+          "failure_type": "wrong_boundary",
+          "observed_mismatch": "wrong_arg_value",
+          "failures": [
+            "response_type: expected 'yes_no', got 'text'"
+          ]
+        },
+        {
+          "case_id": "R13_parallel_web_and_tweets",
+          "failure_type": "wrong_tool",
+          "observed_mismatch": "wrong_arg_value",
+          "failures": [
+            "topic: expected 'news', got None"
+          ]
+        },
+        {
+          "case_id": "M06_switch_tool",
+          "failure_type": "wrong_tool",
+          "observed_mismatch": "missing_tool_call",
+          "failures": [
+            "missing tool call lookup",
+            "extra tool call social_search"
+          ]
+        }
+      ],
+      "tool_health": {
+        "executed_tool_calls": 18,
+        "tool_error_calls": 10,
+        "tool_error_case_count": 10,
+        "tool_error_case_ids": [
+          "M01_clarify_then_fill",
+          "M03_correction_handle",
+          "M05_correction_limit",
+          "M06_switch_tool",
+          "R01_user_tweets_routing",
+          "R02_search_tweets_routing",
+          "R05_limit_arg",
+          "R07_search_type_arg",
+          "R10_missing_handle",
+          "R13_parallel_web_and_tweets"
+        ],
+        "partial_tool_calls": 0,
+        "partial_case_ids": [],
+        "nested_search_error_count": 0,
+        "errors_by_tool": {
+          "timeline": 6,
+          "social_search": 4
+        },
+        "http_status_counts": {
+          "403": 9,
+          "429": 1
+        },
+        "error_details": [
+          {
+            "case_id": "R01_user_tweets_routing",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R02_search_tweets_routing",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R05_limit_arg",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R07_search_type_arg",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R10_missing_handle",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R13_parallel_web_and_tweets",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M01_clarify_then_fill",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M03_correction_handle",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M05_correction_limit",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M06_switch_tool",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 429,
+            "nested_search_errors": 0
+          }
+        ],
+        "note": "Routing/argument scores do not measure external tool success. Tool errors are reported separately and do not invalidate a fully measured provider run."
+      },
+      "snapshot_provenance": {
+        "run_hashes_are_authoritative": true,
+        "prompt": {
+          "snapshot_file": "artifacts/versions/v1/system_prompt.md",
+          "recorded_hash": "bbe91757ae3bed8e239fe7d46a8ab1e49d8661e2044f70dfe3d9b761c58add3b",
+          "snapshot_hash": "bbe91757ae3bed8e239fe7d46a8ab1e49d8661e2044f70dfe3d9b761c58add3b",
+          "matches_snapshot": true
+        },
+        "tools": {
+          "snapshot_file": "artifacts/versions/v1/tools.yaml",
+          "recorded_hash": "87ed98d75509992e885acf04aaa638b1ebf3251d25ad22f8e8bd818dbb60237c",
+          "snapshot_hash": "87ed98d75509992e885acf04aaa638b1ebf3251d25ad22f8e8bd818dbb60237c",
+          "matches_snapshot": true
+        }
+      }
+    },
+    {
+      "version": "v2",
+      "suite": "base",
+      "run_file": "runs/v2_B_base_openrouter_20261110T192059631983.json",
+      "run_id": "v2_B_base_openrouter_20261110T192059631983",
+      "generated_at": "2026-11-10T19:20:59",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "artifact_version": "v2+pbbe91757ae3b+te329ef788230",
+      "prompt_hash": "bbe91757ae3bed8e239fe7d46a8ab1e49d8661e2044f70dfe3d9b761c58add3b",
+      "tools_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 18,
+        "case_accuracy": 0.9,
+        "tool_routing_accuracy": 0.95,
+        "argument_accuracy": 0.9,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {
+          "missing_info": 1,
+          "wrong_boundary": 1
+        },
+        "observed_mismatch_counts": {
+          "missing_tool_call": 1,
+          "wrong_arg_value": 1
+        }
+      },
+      "failure_cases": [
+        {
+          "case_id": "R10_missing_handle",
+          "failure_type": "missing_info",
+          "observed_mismatch": "missing_tool_call",
+          "failures": [
+            "missing tool call clarify",
+            "extra tool call social_search"
+          ]
+        },
+        {
+          "case_id": "R12_confirm_before_send",
+          "failure_type": "wrong_boundary",
+          "observed_mismatch": "wrong_arg_value",
+          "failures": [
+            "response_type: expected 'yes_no', got 'text'"
+          ]
+        }
+      ],
+      "tool_health": {
+        "executed_tool_calls": 18,
+        "tool_error_calls": 9,
+        "tool_error_case_count": 9,
+        "tool_error_case_ids": [
+          "M01_clarify_then_fill",
+          "M03_correction_handle",
+          "M05_correction_limit",
+          "R01_user_tweets_routing",
+          "R02_search_tweets_routing",
+          "R05_limit_arg",
+          "R07_search_type_arg",
+          "R10_missing_handle",
+          "R13_parallel_web_and_tweets"
+        ],
+        "partial_tool_calls": 0,
+        "partial_case_ids": [],
+        "nested_search_error_count": 0,
+        "errors_by_tool": {
+          "timeline": 5,
+          "social_search": 4
+        },
+        "http_status_counts": {
+          "403": 8,
+          "429": 1
+        },
+        "error_details": [
+          {
+            "case_id": "R01_user_tweets_routing",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R02_search_tweets_routing",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 429,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R05_limit_arg",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R07_search_type_arg",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R10_missing_handle",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R13_parallel_web_and_tweets",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M01_clarify_then_fill",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M03_correction_handle",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M05_correction_limit",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          }
+        ],
+        "note": "Routing/argument scores do not measure external tool success. Tool errors are reported separately and do not invalidate a fully measured provider run."
+      },
+      "snapshot_provenance": {
+        "run_hashes_are_authoritative": true,
+        "prompt": {
+          "snapshot_file": "artifacts/versions/v2/system_prompt.md",
+          "recorded_hash": "bbe91757ae3bed8e239fe7d46a8ab1e49d8661e2044f70dfe3d9b761c58add3b",
+          "snapshot_hash": "bbe91757ae3bed8e239fe7d46a8ab1e49d8661e2044f70dfe3d9b761c58add3b",
+          "matches_snapshot": true
+        },
+        "tools": {
+          "snapshot_file": "artifacts/versions/v2/tools.yaml",
+          "recorded_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "snapshot_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "matches_snapshot": true
+        }
+      }
+    },
+    {
+      "version": "v3",
+      "suite": "base",
+      "run_file": "runs/v3_B_base_openrouter_20261110T192320127555.json",
+      "run_id": "v3_B_base_openrouter_20261110T192320127555",
+      "generated_at": "2026-11-10T19:23:20",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "artifact_version": "v3+p5c6f97d6a7c1+te329ef788230",
+      "prompt_hash": "5c6f97d6a7c10b6fe2e9c2396f25a4ae64b14df200514505d8ab840c52b360e4",
+      "tools_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 19,
+        "case_accuracy": 0.95,
+        "tool_routing_accuracy": 1.0,
+        "argument_accuracy": 0.95,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {
+          "wrong_boundary": 1
+        },
+        "observed_mismatch_counts": {
+          "wrong_arg_value": 1
+        }
+      },
+      "failure_cases": [
+        {
+          "case_id": "R12_confirm_before_send",
+          "failure_type": "wrong_boundary",
+          "observed_mismatch": "wrong_arg_value",
+          "failures": [
+            "response_type: expected 'yes_no', got 'text'"
+          ]
+        }
+      ],
+      "tool_health": {
+        "executed_tool_calls": 18,
+        "tool_error_calls": 8,
+        "tool_error_case_count": 8,
+        "tool_error_case_ids": [
+          "M01_clarify_then_fill",
+          "M03_correction_handle",
+          "M05_correction_limit",
+          "R01_user_tweets_routing",
+          "R02_search_tweets_routing",
+          "R05_limit_arg",
+          "R07_search_type_arg",
+          "R13_parallel_web_and_tweets"
+        ],
+        "partial_tool_calls": 0,
+        "partial_case_ids": [],
+        "nested_search_error_count": 0,
+        "errors_by_tool": {
+          "timeline": 5,
+          "social_search": 3
+        },
+        "http_status_counts": {
+          "403": 7,
+          "429": 1
+        },
+        "error_details": [
+          {
+            "case_id": "R01_user_tweets_routing",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R02_search_tweets_routing",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 429,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R05_limit_arg",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R07_search_type_arg",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R13_parallel_web_and_tweets",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M01_clarify_then_fill",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M03_correction_handle",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M05_correction_limit",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          }
+        ],
+        "note": "Routing/argument scores do not measure external tool success. Tool errors are reported separately and do not invalidate a fully measured provider run."
+      },
+      "snapshot_provenance": {
+        "run_hashes_are_authoritative": true,
+        "prompt": {
+          "snapshot_file": "artifacts/versions/v3/system_prompt.md",
+          "recorded_hash": "5c6f97d6a7c10b6fe2e9c2396f25a4ae64b14df200514505d8ab840c52b360e4",
+          "snapshot_hash": "5c6f97d6a7c10b6fe2e9c2396f25a4ae64b14df200514505d8ab840c52b360e4",
+          "matches_snapshot": true
+        },
+        "tools": {
+          "snapshot_file": "artifacts/versions/v3/tools.yaml",
+          "recorded_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "snapshot_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "matches_snapshot": true
+        }
+      }
+    },
+    {
+      "version": "v4",
+      "suite": "base",
+      "run_file": "runs/v4_B_base_openrouter_20261110T213840374908.json",
+      "run_id": "v4_B_base_openrouter_20261110T213840374908",
+      "generated_at": "2026-11-10T21:38:40",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "artifact_version": "v4+p1cef423a1069+te329ef788230",
+      "prompt_hash": "1cef423a106940a815fcf710d3fd719a909f6953d560b71a64e4cba6a5340be8",
+      "tools_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 19,
+        "case_accuracy": 0.95,
+        "tool_routing_accuracy": 1.0,
+        "argument_accuracy": 0.95,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {
+          "wrong_boundary": 1
+        },
+        "observed_mismatch_counts": {
+          "wrong_arg_value": 1
+        }
+      },
+      "failure_cases": [
+        {
+          "case_id": "R12_confirm_before_send",
+          "failure_type": "wrong_boundary",
+          "observed_mismatch": "wrong_arg_value",
+          "failures": [
+            "response_type: expected 'yes_no', got 'text'"
+          ]
+        }
+      ],
+      "tool_health": {
+        "executed_tool_calls": 18,
+        "tool_error_calls": 8,
+        "tool_error_case_count": 8,
+        "tool_error_case_ids": [
+          "M01_clarify_then_fill",
+          "M03_correction_handle",
+          "M05_correction_limit",
+          "R01_user_tweets_routing",
+          "R02_search_tweets_routing",
+          "R05_limit_arg",
+          "R07_search_type_arg",
+          "R13_parallel_web_and_tweets"
+        ],
+        "partial_tool_calls": 0,
+        "partial_case_ids": [],
+        "nested_search_error_count": 0,
+        "errors_by_tool": {
+          "timeline": 5,
+          "social_search": 3
+        },
+        "http_status_counts": {
+          "403": 8
+        },
+        "error_details": [
+          {
+            "case_id": "R01_user_tweets_routing",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R02_search_tweets_routing",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R05_limit_arg",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R07_search_type_arg",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R13_parallel_web_and_tweets",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M01_clarify_then_fill",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M03_correction_handle",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M05_correction_limit",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          }
+        ],
+        "note": "Routing/argument scores do not measure external tool success. Tool errors are reported separately and do not invalidate a fully measured provider run."
+      },
+      "snapshot_provenance": {
+        "run_hashes_are_authoritative": true,
+        "prompt": {
+          "snapshot_file": "artifacts/versions/v4/system_prompt.md",
+          "recorded_hash": "1cef423a106940a815fcf710d3fd719a909f6953d560b71a64e4cba6a5340be8",
+          "snapshot_hash": "1cef423a106940a815fcf710d3fd719a909f6953d560b71a64e4cba6a5340be8",
+          "matches_snapshot": true
+        },
+        "tools": {
+          "snapshot_file": "artifacts/versions/v4/tools.yaml",
+          "recorded_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "snapshot_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "matches_snapshot": true
+        }
+      }
+    },
+    {
+      "version": "v3",
+      "suite": "group",
+      "run_file": "runs/v3_B_group_openrouter_20261110T192305674708.json",
+      "run_id": "v3_B_group_openrouter_20261110T192305674708",
+      "generated_at": "2026-11-10T19:23:05",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "artifact_version": "v3+p5c6f97d6a7c1+te329ef788230",
+      "prompt_hash": "5c6f97d6a7c10b6fe2e9c2396f25a4ae64b14df200514505d8ab840c52b360e4",
+      "tools_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+      "summary": {
+        "total_cases": 10,
+        "measured_cases": 10,
+        "provider_error_cases": 0,
+        "passed_cases": 8,
+        "case_accuracy": 0.8,
+        "tool_routing_accuracy": 0.9,
+        "argument_accuracy": 0.8,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {
+          "wrong_tool": 1,
+          "wrong_arg_value": 1
+        },
+        "observed_mismatch_counts": {
+          "extra_tool_call": 1,
+          "wrong_arg_value": 1
+        }
+      },
+      "failure_cases": [
+        {
+          "case_id": "G01_investigate_evidence",
+          "failure_type": "wrong_tool",
+          "observed_mismatch": "extra_tool_call",
+          "failures": [
+            "extra tool call investigate"
+          ]
+        },
+        {
+          "case_id": "G02_compare_shared_criteria",
+          "failure_type": "wrong_arg_value",
+          "observed_mismatch": "wrong_arg_value",
+          "failures": [
+            "timeframe: expected 'all', got None"
+          ]
+        }
+      ],
+      "tool_health": {
+        "executed_tool_calls": 10,
+        "tool_error_calls": 0,
+        "tool_error_case_count": 0,
+        "tool_error_case_ids": [],
+        "partial_tool_calls": 0,
+        "partial_case_ids": [],
+        "nested_search_error_count": 0,
+        "errors_by_tool": {},
+        "http_status_counts": {},
+        "error_details": [],
+        "note": "Routing/argument scores do not measure external tool success. Tool errors are reported separately and do not invalidate a fully measured provider run."
+      },
+      "snapshot_provenance": {
+        "run_hashes_are_authoritative": true,
+        "prompt": {
+          "snapshot_file": "artifacts/versions/v3/system_prompt.md",
+          "recorded_hash": "5c6f97d6a7c10b6fe2e9c2396f25a4ae64b14df200514505d8ab840c52b360e4",
+          "snapshot_hash": "5c6f97d6a7c10b6fe2e9c2396f25a4ae64b14df200514505d8ab840c52b360e4",
+          "matches_snapshot": true
+        },
+        "tools": {
+          "snapshot_file": "artifacts/versions/v3/tools.yaml",
+          "recorded_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "snapshot_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "matches_snapshot": true
+        }
+      }
+    },
+    {
+      "version": "v4",
+      "suite": "group",
+      "run_file": "runs/v4_B_group_openrouter_20261110T213941166369.json",
+      "run_id": "v4_B_group_openrouter_20261110T213941166369",
+      "generated_at": "2026-11-10T21:39:41",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "artifact_version": "v4+p1cef423a1069+te329ef788230",
+      "prompt_hash": "1cef423a106940a815fcf710d3fd719a909f6953d560b71a64e4cba6a5340be8",
+      "tools_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+      "summary": {
+        "total_cases": 10,
+        "measured_cases": 10,
+        "provider_error_cases": 0,
+        "passed_cases": 9,
+        "case_accuracy": 0.9,
+        "tool_routing_accuracy": 0.9,
+        "argument_accuracy": 0.9,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {
+          "wrong_tool": 1
+        },
+        "observed_mismatch_counts": {
+          "extra_tool_call": 1
+        }
+      },
+      "failure_cases": [
+        {
+          "case_id": "G01_investigate_evidence",
+          "failure_type": "wrong_tool",
+          "observed_mismatch": "extra_tool_call",
+          "failures": [
+            "extra tool call investigate"
+          ]
+        }
+      ],
+      "tool_health": {
+        "executed_tool_calls": 10,
+        "tool_error_calls": 0,
+        "tool_error_case_count": 0,
+        "tool_error_case_ids": [],
+        "partial_tool_calls": 0,
+        "partial_case_ids": [],
+        "nested_search_error_count": 0,
+        "errors_by_tool": {},
+        "http_status_counts": {},
+        "error_details": [],
+        "note": "Routing/argument scores do not measure external tool success. Tool errors are reported separately and do not invalidate a fully measured provider run."
+      },
+      "snapshot_provenance": {
+        "run_hashes_are_authoritative": true,
+        "prompt": {
+          "snapshot_file": "artifacts/versions/v4/system_prompt.md",
+          "recorded_hash": "1cef423a106940a815fcf710d3fd719a909f6953d560b71a64e4cba6a5340be8",
+          "snapshot_hash": "1cef423a106940a815fcf710d3fd719a909f6953d560b71a64e4cba6a5340be8",
+          "matches_snapshot": true
+        },
+        "tools": {
+          "snapshot_file": "artifacts/versions/v4/tools.yaml",
+          "recorded_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "snapshot_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "matches_snapshot": true
+        }
+      }
+    }
+  ],
+  "excluded_runs": [
+    {
+      "run_file": "runs/v0_B_base_openai_20261110T184708827363.json",
+      "reasons": [
+        "measured_cases_does_not_equal_total_cases",
+        "provider_error_cases_nonzero_or_missing",
+        "case_contains_provider_error"
+      ],
+      "version": "v0",
+      "suite": "base",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 0,
+        "provider_error_cases": 20,
+        "passed_cases": 0,
+        "case_accuracy": 0.0,
+        "failure_counts": {},
+        "observed_mismatch_counts": {}
+      }
+    },
+    {
+      "run_file": "runs/v0_B_base_openrouter_20261110T185625193558.json",
+      "reasons": [
+        "superseded_by_newer_valid_run_same_version_and_suite"
+      ],
+      "version": "v0",
+      "suite": "base",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 14,
+        "case_accuracy": 0.7,
+        "tool_routing_accuracy": 0.75,
+        "argument_accuracy": 0.7,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {
+          "out_of_scope": 2,
+          "missing_info": 2,
+          "wrong_boundary": 1,
+          "wrong_tool": 1
+        },
+        "observed_mismatch_counts": {
+          "unexpected_tool_call": 2,
+          "missing_tool_call": 3,
+          "wrong_arg_value": 1
+        }
+      }
+    },
+    {
+      "run_file": "runs/v4_B_base_openrouter_20261110T192640949460.json",
+      "reasons": [
+        "superseded_by_newer_valid_run_same_version_and_suite"
+      ],
+      "version": "v4",
+      "suite": "base",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 19,
+        "case_accuracy": 0.95,
+        "tool_routing_accuracy": 1.0,
+        "argument_accuracy": 0.95,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {
+          "wrong_boundary": 1
+        },
+        "observed_mismatch_counts": {
+          "wrong_arg_value": 1
+        }
+      }
+    },
+    {
+      "run_file": "runs/v4_B_group_openrouter_20261110T192557285563.json",
+      "reasons": [
+        "superseded_by_newer_valid_run_same_version_and_suite"
+      ],
+      "version": "v4",
+      "suite": "group",
+      "summary": {
+        "total_cases": 10,
+        "measured_cases": 10,
+        "provider_error_cases": 0,
+        "passed_cases": 9,
+        "case_accuracy": 0.9,
+        "tool_routing_accuracy": 0.9,
+        "argument_accuracy": 0.9,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {
+          "wrong_tool": 1
+        },
+        "observed_mismatch_counts": {
+          "extra_tool_call": 1
+        }
+      }
+    }
+  ],
+  "pending_runs": []
+}

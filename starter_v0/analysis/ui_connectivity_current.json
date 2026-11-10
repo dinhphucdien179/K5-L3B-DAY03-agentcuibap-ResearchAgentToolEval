@@ -1,0 +1,22 @@
+{
+  "checked_at": "2026-11-10T21:55:11+07:00",
+  "url": "https://wives-rfc-clocks-delayed.trycloudflare.com",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "upgrade": null
+    },
+    {
+      "path": "/_stcore/health",
+      "status": 200,
+      "upgrade": null
+    },
+    {
+      "path": "/_stcore/stream",
+      "status": 101,
+      "upgrade": "websocket"
+    }
+  ],
+  "note": "Read-only verification of the user-started tunnel; no server or tunnel started/stopped."
+}

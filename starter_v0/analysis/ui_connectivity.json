@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-11-10T21:13:58+07:00",
+  "url": "https://fixtures-smoking-jose-liz.trycloudflare.com",
+  "root_status": 200,
+  "health_status": 200,
+  "websocket_status": 101,
+  "previous_url": "https://sea-useful-vector-parenting.trycloudflare.com",
+  "previous_failure": "HTTP 530 / Cloudflare 1033; no cloudflared process remained; local UI still HTTP 200",
+  "note": "Temporary URL; requires UI and tunnel processes to remain running."
+}

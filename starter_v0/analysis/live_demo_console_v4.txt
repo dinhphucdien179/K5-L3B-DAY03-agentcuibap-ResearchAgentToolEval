@@ -1,0 +1,37 @@
+Scripted smoke demo; responses and transcripts come from live provider/tool execution.
+Research Agent chat. artifact_version=v4+p1cef423a1069+te329ef788230
+Type /exit to stop.
+
+You> 🔧 investigate({"angles": ["hiệu quả thực tế", "hạn chế"], "sources_per_angle": 1, "timeframe": "all", "topic": "RAG"})
+🔧 investigate({"angles": ["hạn chế"], "sources_per_angle": 1, "timeframe": "all", "topic": "RAG"})
+
+Agent> Dưới đây là kết quả nghiên cứu sâu về RAG theo hai góc "hiệu quả thực tế" và "hạn chế":
+
+1. **Hiệu quả thực tế**: Một prompt RAG hiệu quả thường bao gồm các yêu cầu rõ ràng, chẳng hạn: 
+   - (i) chỉ sử dụng thông tin trong context 
+   - (ii) nếu không tìm thấy thông tin cần thiết thì phải thừa nhận “không đủ dữ liệu”.
+   - [Nguồn](https://aioconquer.aivietnam.edu.vn/posts/retrieval-augmented-generation-rag-and-re-ranking)
+
+2. **Hạn chế**: RAG cũng tồn tại một số hạn chế nhất định, trong đó tính bảo mật là nhược điểm cần cân nhắc khi ứng dụng RAG. RAG được thiết kế nhằm khắc phục hạn chế của các mô hình ngôn ngữ khi chúng chỉ dựa trên dữ liệu đã được huấn luyện sẵn, dễ dẫn đến hiện tượng “ảo tưởng thông tin” (hallucination).
+   - [Nguồn](https://vnptai.io/vi/blog/detail/rag-la-gi)
+
+Nếu bạn cần thêm thông tin hoặc chi tiết nào khác, hãy cho tôi biết!
+Transcript saved: /mnt/Setup/AI_In_Action/buoi3/thuchanh/K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval/starter_v0/transcripts/v4_openrouter_20261110T192544082659.transcript.json
+
+You> 🔧 clarify({"question": "Bạn có thể cung cấp đường link của bài viết mà bạn muốn tôi xem xét không?", "response_type": "text"})
+
+Agent> Bạn có thể cung cấp đường link của bài viết mà bạn muốn tôi xem xét không?
+Transcript saved: /mnt/Setup/AI_In_Action/buoi3/thuchanh/K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval/starter_v0/transcripts/v4_openrouter_20261110T192544082659.transcript.json
+
+You> 🔧 fetch({"url": "https://arxiv.org/abs/2005.11401"})
+
+Agent> Bài viết "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks" (arXiv:2005.11401) trình bày về việc kết hợp giữa mô hình ngôn ngữ đã được huấn luyện trước và bộ nhớ không tham số để cải thiện hiệu suất trong các tác vụ NLP yêu cầu kiến thức. Bài viết chỉ ra rằng các mô hình ngôn ngữ lớn có thể lưu trữ kiến thức nhưng khả năng truy cập và thao tác chính xác với kiến thức vẫn còn hạn chế. Tác giả giới thiệu mô hình RAG, trong đó bộ nhớ tham số là một mô hình seq2seq đã được huấn luyện trước và bộ nhớ không tham số là chỉ mục vector dày đặc từ Wikipedia. Kết quả cho thấy mô hình RAG đạt được hiệu suất tốt hơn trên nhiều tác vụ QA mở và tạo ra ngôn ngữ cụ thể, đa dạng và chính xác hơn so với các mô hình seq2seq chỉ tham số.
+
+- [Nguồn](https://arxiv.org/abs/2005.11401)
+Transcript saved: /mnt/Setup/AI_In_Action/buoi3/thuchanh/K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval/starter_v0/transcripts/v4_openrouter_20261110T192544082659.transcript.json
+
+You> 
+Agent> Bạn có chắc chắn muốn gửi nguyên văn "Bản tin demo nghiên cứu của nhóm agentcuibap." lên Telegram không? Vui lòng xác nhận để tôi có thể thực hiện.
+Transcript saved: /mnt/Setup/AI_In_Action/buoi3/thuchanh/K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval/starter_v0/transcripts/v4_openrouter_20261110T192544082659.transcript.json
+
+You> Final transcript: /mnt/Setup/AI_In_Action/buoi3/thuchanh/K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval/starter_v0/transcripts/v4_openrouter_20261110T192544082659.transcript.json
