@@ -1,6 +1,5 @@
-CP3 verification summary
-Command (from starter_v0): conda run -n AI20k python -m pytest -q
-Observed result: 108 passed, 14 skipped in 0.41s
-0 failed. Remaining skips are starter tests for existing tools.
-New-tool tests: deduplicate 13 cases; investigate 23 cases.
-All HTTP mocked; no live API evaluation in this verification.
+CP3 latest verification: see analysis/pytest_final.txt and analysis/pytest.xml.
+Command from starter_v0: conda run --no-capture-output -n AI20k python -m pytest -q --junitxml=analysis/pytest.xml
+Observed latest: 272 passed, 0 failed, 0 skipped.
+New CP3 regression cases: 14; baseline-provenance regression: 1.
+All HTTP mocked in unit tests; live model eval evidence is stored separately in runs/.

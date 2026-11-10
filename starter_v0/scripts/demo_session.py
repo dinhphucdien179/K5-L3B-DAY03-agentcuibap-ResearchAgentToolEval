@@ -16,7 +16,7 @@ PROMPTS = [
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--provider', default='openrouter')
-    parser.add_argument('--version', default='v3')
+    parser.add_argument('--version', default='v6')
     parser.add_argument('--model')
     args = parser.parse_args()
     command = [sys.executable, str(ROOT / 'chat.py'), '--provider', args.provider,

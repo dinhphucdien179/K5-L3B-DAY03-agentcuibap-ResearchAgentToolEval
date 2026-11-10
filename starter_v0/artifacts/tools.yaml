@@ -67,9 +67,10 @@ tools:
     required:
     - items
 - name: clarify
-  description: 'Hỏi lại và chờ user khi thiếu account/handle, URL, chủ đề, bản nháp hoặc danh mục nguồn. Cũng dùng
-    để xin xác nhận gửi/đăng: response_type=yes_no. Thiếu thông tin dùng response_type=text. Không dùng nếu đủ thông
-    tin hoặc user đã hủy yêu cầu.'
+  description: 'Điều phối bước hỏi theo Ý ĐỊNH của user. Yêu cầu gửi/đăng lần đầu: LUÔN response_type=yes_no, kể
+    cả chưa có bản tin; hỏi user có đồng ý chuẩn bị và duyệt nội dung trước khi gửi không. Chưa xem và duyệt đúng
+    nội dung thì không gửi. response_type=text chỉ dành cho thiếu account/URL/chủ đề/danh mục của yêu cầu nghiên
+    cứu KHÔNG phải gửi. User hủy thì không gọi tool. Không dùng nếu yêu cầu đã đủ rõ và không có hành động gửi.'
   parameters:
     type: object
     properties:

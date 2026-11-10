@@ -360,7 +360,7 @@ def main() -> None:
             st.warning(f"Chưa có {PROVIDER_KEYS.get(provider, 'API key')} trong .env")
         st.caption("Trang chỉ đọc trạng thái cấu hình, không hiển thị API key.")
         with st.expander("Tùy chỉnh phiên"):
-            version = st.text_input("Nhãn artifact", value="v4", help="Hash prompt và tools được ghi tự động trong transcript.")
+            version = st.text_input("Nhãn artifact", value="v6", help="Hash prompt và tools được ghi tự động trong transcript.")
             max_rounds = st.slider("Số vòng gọi tool tối đa", min_value=1, max_value=10, value=6)
         st.divider()
         st.caption("KHO CÔNG CỤ")

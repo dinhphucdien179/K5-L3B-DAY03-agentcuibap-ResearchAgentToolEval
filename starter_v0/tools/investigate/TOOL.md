@@ -39,6 +39,9 @@ Input sai trả error dict trước khi gọi mạng. Một truy vấn lỗi v�
 truy vấn khác và trả status=partial; tất cả truy vấn lỗi trả status=error cùng
 chi tiết. Kết quả thiếu URL HTTP(S) hợp lệ hoặc excerpt bị bỏ qua và được đếm.
 Không có nguồn dùng được thì ghi gap, không tự bịa nguồn thay thế.
+Response sai cấu trúc hoặc exception ở một truy vấn không làm mất nguồn đã lấy
+ở truy vấn khác và không tự retry tăng số request. Title sai kiểu dùng Untitled;
+tên miền được chuẩn hóa chữ thường để domain_count không đếm trùng vì cách viết.
 
 Snippet lấy từ search, chưa phải toàn văn đã kiểm chứng. Không gắn nhãn đúng/sai
 hoặc ủng hộ/phản bác chỉ từ câu truy vấn. complete chỉ nói đủ góc có kết quả.

@@ -1,9 +1,11 @@
 """Evidence selection must not hide failed runs or cherry-pick high scores."""
 from __future__ import annotations
 
+import hashlib
 import json
+import subprocess
 
-from scripts.update_evidence import invalid_reasons, select_runs, snapshot_provenance, tool_health
+from scripts.update_evidence import git_original_tools, invalid_reasons, select_runs, snapshot_provenance, tool_health
 
 
 def synthetic_run(version="v0", timestamp="2026-11-10T10:00:00", passed=True):
@@ -65,3 +67,41 @@ def test_snapshot_provenance_keeps_recorded_hash_when_file_does_not_match(tmp_pa
     assert provenance["prompt"]["matches_snapshot"] is False
     assert provenance["tools"]["recorded_hash"] == "b" * 64
     assert provenance["tools"]["matches_snapshot"] is False
+
+
+def test_original_tools_uses_matching_ancestor_after_finished_tools_are_committed(tmp_path):
+    """A later submission commit must not replace the measured baseline provenance."""
+    repo = tmp_path / "repo"
+    root = repo / "starter_v0"
+    tools = root / "artifacts" / "tools.yaml"
+    tools.parent.mkdir(parents=True)
+
+    def git(*args):
+        return subprocess.run(
+            ["git", "-c", f"safe.directory={repo}", "-c", "user.name=Evidence test",
+             "-c", "user.email=evidence-test@example.invalid", "-C", str(repo), *args],
+            check=True, capture_output=True, text=True,
+        ).stdout.strip()
+
+    git("init")
+    baseline_content = "tools: []\n"
+    tools.write_text(baseline_content, encoding="utf-8")
+    git("add", "starter_v0/artifacts/tools.yaml")
+    git("commit", "-m", "Test fixture baseline")
+    baseline_commit = git("rev-parse", "HEAD")
+    baseline_hash = hashlib.sha256(baseline_content.encode()).hexdigest()
+    tools.write_text("tools: [{name: new_research_tool}]\n", encoding="utf-8")
+    git("add", "starter_v0/artifacts/tools.yaml")
+    git("commit", "-m", "Test fixture optimized tools")
+    assert git("rev-parse", "HEAD") != baseline_commit
+
+    provenance = git_original_tools(root, baseline_hash)
+
+    assert provenance["available"] is True
+    assert provenance["commit"] == baseline_commit
+    assert provenance["git_object"] == f"{baseline_commit}:starter_v0/artifacts/tools.yaml"
+    assert provenance["sha256"] == baseline_hash
+    missing = git_original_tools(root, "f" * 64)
+    assert missing["available"] is False
+    assert missing["recorded_hash"] == "f" * 64
+    assert "sha256" not in missing

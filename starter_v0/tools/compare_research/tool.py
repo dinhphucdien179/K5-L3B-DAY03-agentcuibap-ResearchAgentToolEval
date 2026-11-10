@@ -75,7 +75,7 @@ def compare_research(
                     source_catalog[key] = {
                         "id": f"S{len(source_catalog) + 1}", "url": item["url"].strip(),
                         "title": title if isinstance(title, str) and title.strip() else "Untitled",
-                        "source": domain(item["url"]),
+                        "source": domain(key),
                     }
                 source_id = source_catalog[key]["id"]
                 if source_id not in cell["source_ids"]:

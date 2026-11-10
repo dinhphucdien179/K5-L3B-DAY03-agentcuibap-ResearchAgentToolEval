@@ -51,6 +51,16 @@ CHANGES = {
         "reason": "Giữ tools v3; bổ sung quy tắc batch các góc nhìn/tiêu chí vào một workbench call và truyền timeframe=all khi không giới hạn thời gian.",
         "hypothesis": "Gộp công việc trong một call và ghi rõ timeframe giúp giảm call investigate trùng và thiếu giá trị mặc định trong eval nhóm; chỉ ghi metric khi có run thật.",
     },
+    "v5": {
+        "changed_artifact": "artifacts/system_prompt.md",
+        "reason": "Giữ nguyên tools v4; ưu tiên ý định gửi/đăng trước quy tắc hỏi thông tin thiếu, dùng clarify yes_no để xin phép tiếp tục workflow dù draft còn thiếu; đây chưa phải duyệt nội dung để gửi.",
+        "hypothesis": "Một quy tắc ưu tiên nhất quán cho gửi/đăng giảm lỗi R12 response_type=text mà không bỏ qua yêu cầu duyệt đúng nội dung trước khi send.",
+    },
+    "v6": {
+        "changed_artifact": "artifacts/tools.yaml (clarify.description only)",
+        "reason": "V5 vẫn lỗi R12; giữ prompt v5 và các schema, chỉ làm rõ ngoại lệ yes_no cho yêu cầu gửi lần đầu, kể cả thiếu draft, ngay trong mô tả clarify.",
+        "hypothesis": "Quy tắc ưu tiên ý định gửi ngay trong tool declaration giảm lỗi R12 chọn text, vẫn giữ yêu cầu xem và duyệt đúng nội dung trước khi send.",
+    },
 }
 
 
@@ -145,19 +155,37 @@ def tool_health(run: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def git_original_tools(root: Path) -> dict[str, Any]:
+def git_original_tools(root: Path, expected_hash: str | None) -> dict[str, Any]:
+    """Find an immutable ancestor object matching the hash measured for v0.
+
+    HEAD may already contain the finished assignment, so it cannot establish
+    what tools were available in the baseline. Never substitute an unmatched
+    Git object for the recorded baseline hash.
+    """
+    if not isinstance(expected_hash, str) or not re.fullmatch(r"[0-9a-f]{64}", expected_hash):
+        return {"available": False, "note": "No valid v0 tools hash is available to identify the original Git object."}
     repo = root.parent
     prefix = ["git", "-c", f"safe.directory={repo}", "-C", str(repo)]
+    tool_path = f"{root.name}/artifacts/tools.yaml"
     try:
-        content = subprocess.run(prefix + ["show", "HEAD:starter_v0/artifacts/tools.yaml"],
-                                 capture_output=True, check=True, timeout=10).stdout
-        commit = subprocess.run(prefix + ["rev-parse", "HEAD"], capture_output=True,
-                                text=True, check=True, timeout=10).stdout.strip()
+        commits = subprocess.run(prefix + ["rev-list", "HEAD", "--", tool_path],
+                                 capture_output=True, text=True, check=True, timeout=10).stdout.splitlines()
     except (OSError, subprocess.SubprocessError):
         return {"available": False, "note": "Original tools file was not reconstructed; the hash stored in each run remains authoritative."}
-    return {"available": True, "git_object": "HEAD:starter_v0/artifacts/tools.yaml", "commit": commit,
-            "sha256": hashlib.sha256(content).hexdigest(),
-            "note": "Hash read directly from the existing Git object; no original tools snapshot was fabricated."}
+    for commit in commits:
+        git_object = f"{commit}:{tool_path}"
+        try:
+            content = subprocess.run(prefix + ["show", git_object],
+                                     capture_output=True, check=True, timeout=10).stdout
+        except (OSError, subprocess.SubprocessError):
+            continue
+        actual_hash = hashlib.sha256(content).hexdigest()
+        if actual_hash == expected_hash:
+            return {"available": True, "git_object": git_object, "commit": commit,
+                    "sha256": actual_hash,
+                    "note": "Immutable ancestor object matches the recorded v0 tools SHA-256; no original tools snapshot was fabricated."}
+    return {"available": False, "recorded_hash": expected_hash,
+            "note": "No available ancestor tools object matches the recorded v0 hash; the run hash remains authoritative."}
 
 
 def snapshot_provenance(root: Path, run: dict[str, Any], original_tools: dict[str, Any]) -> dict[str, Any]:
@@ -216,7 +244,9 @@ def percentage(value: Any) -> str:
 
 def build_evidence(root: Path = ROOT, runs_dir: Path | None = None) -> dict[str, Any]:
     selected, excluded = select_runs(root, runs_dir or root / "runs")
-    original_tools = git_original_tools(root)
+    baseline_hash = next((item["run"]["tools_hash"] for item in selected
+                          if item["run"]["version"] == "v0" and item["run"]["suite"] == "base"), None)
+    original_tools = git_original_tools(root, baseline_hash)
     entries = []
     rows = []
     prior_accuracy: dict[str, Any] = {"base": "", "group": ""}
@@ -260,7 +290,7 @@ def build_evidence(root: Path = ROOT, runs_dir: Path | None = None) -> dict[str,
         "selection_policy": "Latest valid run per version and suite, ordered by recorded generated_at then filename; not highest accuracy. Invalid provider runs and superseded valid runs remain on disk and are listed as excluded.",
         "validity_rule": "total_cases > 0; measured_cases == total_cases; provider_error_cases == 0; per-case results/counts/accuracy agree; full SHA-256 prompt/tools hashes exist.",
         "metric_scope": "run_eval measures routing and argument matching. Its passed_cases do not imply successful APIs, factual accuracy, or a complete conversation.",
-        "change_log_note": "Change descriptions/hypotheses are documented retrospectively from actual snapshots and saved runs, not pre-registered experiments. v1 also changed the tool set; improvement cannot be attributed to the prompt alone.",
+        "change_log_note": "v0-v4 descriptions/hypotheses were documented retrospectively from snapshots and saved runs. v5 onward have prospective hypothesis.json recorded before evaluation. v1 also changed the tool set; its improvement cannot be attributed to the prompt alone.",
         "author": AUTHOR, "original_tools_provenance": original_tools,
         "eval_base_sha256": sha256(root / "data" / "eval_base.json") if (root / "data" / "eval_base.json").is_file() else None,
         "selected_runs": entries, "excluded_runs": excluded, "pending_runs": pending,

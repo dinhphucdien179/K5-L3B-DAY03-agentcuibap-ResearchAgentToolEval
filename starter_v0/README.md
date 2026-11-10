@@ -12,4 +12,4 @@ Chi tiết từng bước xem [README.md](../README.md) ở root; cấu hình AP
 
 ## Research Studio hoàn thiện
 
-Xem [RUNBOOK.md](RUNBOOK.md) để chạy UI bằng Conda AI20k, mở link demo, chạy test/eval/chat và tái lập evidence. Bản prompt hiện tại là v4; snapshot v1–v4 nằm trong artifacts/versions/.
+Xem [RUNBOOK.md](RUNBOOK.md) để chạy UI bằng Conda AI20k, mở link demo, chạy test/eval/chat và tái lập evidence. Bản prompt hiện tại là v6; snapshot v1–v6 nằm trong artifacts/versions/.

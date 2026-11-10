@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-11-10T21:41:01+07:00",
+  "generated_at": "2026-11-10T23:43:25+07:00",
   "selection_policy": "Latest valid run per version and suite, ordered by recorded generated_at then filename; not highest accuracy. Invalid provider runs and superseded valid runs remain on disk and are listed as excluded.",
   "validity_rule": "total_cases > 0; measured_cases == total_cases; provider_error_cases == 0; per-case results/counts/accuracy agree; full SHA-256 prompt/tools hashes exist.",
   "metric_scope": "run_eval measures routing and argument matching. Its passed_cases do not imply successful APIs, factual accuracy, or a complete conversation.",
-  "change_log_note": "Change descriptions/hypotheses are documented retrospectively from actual snapshots and saved runs, not pre-registered experiments. v1 also changed the tool set; improvement cannot be attributed to the prompt alone.",
+  "change_log_note": "v0-v4 descriptions/hypotheses were documented retrospectively from snapshots and saved runs. v5 onward have prospective hypothesis.json recorded before evaluation. v1 also changed the tool set; its improvement cannot be attributed to the prompt alone.",
   "author": "Đinh Phúc Diên (AI-assisted implementation)",
   "original_tools_provenance": {
     "available": true,
-    "git_object": "HEAD:starter_v0/artifacts/tools.yaml",
-    "commit": "c68da4cdb50c118c9f00622bd72e6cd7afc57b18",
+    "git_object": "fbab62de182e88f74f94750539525230adbf3eb9:starter_v0/artifacts/tools.yaml",
+    "commit": "fbab62de182e88f74f94750539525230adbf3eb9",
     "sha256": "41a2894f8ad1b5f1af946a1ebd34dc809faa05f187393d1fb770540a67c9074a",
-    "note": "Hash read directly from the existing Git object; no original tools snapshot was fabricated."
+    "note": "Immutable ancestor object matches the recorded v0 tools SHA-256; no original tools snapshot was fabricated."
   },
   "eval_base_sha256": "c917b3606e88643c27a479c43236f76ffa701ff271aa6d24c30e223fefd72c44",
   "selected_runs": [
@@ -841,6 +841,267 @@
       }
     },
     {
+      "version": "v5",
+      "suite": "base",
+      "run_file": "runs/v5_B_base_openrouter_20261110T234010963310.json",
+      "run_id": "v5_B_base_openrouter_20261110T234010963310",
+      "generated_at": "2026-11-10T23:40:10",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "artifact_version": "v5+pe4386e443011+te329ef788230",
+      "prompt_hash": "e4386e4430110a368e3ee25b21ee79a7390e6b629a7110bac7d849e3c84b9d5f",
+      "tools_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 19,
+        "case_accuracy": 0.95,
+        "tool_routing_accuracy": 1.0,
+        "argument_accuracy": 0.95,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {
+          "wrong_boundary": 1
+        },
+        "observed_mismatch_counts": {
+          "wrong_arg_value": 1
+        }
+      },
+      "failure_cases": [
+        {
+          "case_id": "R12_confirm_before_send",
+          "failure_type": "wrong_boundary",
+          "observed_mismatch": "wrong_arg_value",
+          "failures": [
+            "response_type: expected 'yes_no', got 'text'"
+          ]
+        }
+      ],
+      "tool_health": {
+        "executed_tool_calls": 18,
+        "tool_error_calls": 8,
+        "tool_error_case_count": 8,
+        "tool_error_case_ids": [
+          "M01_clarify_then_fill",
+          "M03_correction_handle",
+          "M05_correction_limit",
+          "R01_user_tweets_routing",
+          "R02_search_tweets_routing",
+          "R05_limit_arg",
+          "R07_search_type_arg",
+          "R13_parallel_web_and_tweets"
+        ],
+        "partial_tool_calls": 0,
+        "partial_case_ids": [],
+        "nested_search_error_count": 0,
+        "errors_by_tool": {
+          "timeline": 5,
+          "social_search": 3
+        },
+        "http_status_counts": {
+          "403": 8
+        },
+        "error_details": [
+          {
+            "case_id": "R01_user_tweets_routing",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R02_search_tweets_routing",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R05_limit_arg",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R07_search_type_arg",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R13_parallel_web_and_tweets",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M01_clarify_then_fill",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M03_correction_handle",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M05_correction_limit",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          }
+        ],
+        "note": "Routing/argument scores do not measure external tool success. Tool errors are reported separately and do not invalidate a fully measured provider run."
+      },
+      "snapshot_provenance": {
+        "run_hashes_are_authoritative": true,
+        "prompt": {
+          "snapshot_file": "artifacts/versions/v5/system_prompt.md",
+          "recorded_hash": "e4386e4430110a368e3ee25b21ee79a7390e6b629a7110bac7d849e3c84b9d5f",
+          "snapshot_hash": "e4386e4430110a368e3ee25b21ee79a7390e6b629a7110bac7d849e3c84b9d5f",
+          "matches_snapshot": true
+        },
+        "tools": {
+          "snapshot_file": "artifacts/versions/v5/tools.yaml",
+          "recorded_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "snapshot_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "matches_snapshot": true
+        }
+      }
+    },
+    {
+      "version": "v6",
+      "suite": "base",
+      "run_file": "runs/v6_B_base_openrouter_20261110T234242756239.json",
+      "run_id": "v6_B_base_openrouter_20261110T234242756239",
+      "generated_at": "2026-11-10T23:42:42",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "artifact_version": "v6+pe4386e443011+t3b71705b7594",
+      "prompt_hash": "e4386e4430110a368e3ee25b21ee79a7390e6b629a7110bac7d849e3c84b9d5f",
+      "tools_hash": "3b71705b759497516b4dc703c759028baadfa5b1e60201bdac4b9ec94d208d9a",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 20,
+        "case_accuracy": 1.0,
+        "tool_routing_accuracy": 1.0,
+        "argument_accuracy": 1.0,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {},
+        "observed_mismatch_counts": {}
+      },
+      "failure_cases": [],
+      "tool_health": {
+        "executed_tool_calls": 18,
+        "tool_error_calls": 8,
+        "tool_error_case_count": 8,
+        "tool_error_case_ids": [
+          "M01_clarify_then_fill",
+          "M03_correction_handle",
+          "M05_correction_limit",
+          "R01_user_tweets_routing",
+          "R02_search_tweets_routing",
+          "R05_limit_arg",
+          "R07_search_type_arg",
+          "R13_parallel_web_and_tweets"
+        ],
+        "partial_tool_calls": 0,
+        "partial_case_ids": [],
+        "nested_search_error_count": 0,
+        "errors_by_tool": {
+          "timeline": 5,
+          "social_search": 3
+        },
+        "http_status_counts": {
+          "403": 8
+        },
+        "error_details": [
+          {
+            "case_id": "R01_user_tweets_routing",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R02_search_tweets_routing",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R05_limit_arg",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R07_search_type_arg",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "R13_parallel_web_and_tweets",
+            "tool": "social_search",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M01_clarify_then_fill",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M03_correction_handle",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          },
+          {
+            "case_id": "M05_correction_limit",
+            "tool": "timeline",
+            "error_type": "HTTPError",
+            "http_status": 403,
+            "nested_search_errors": 0
+          }
+        ],
+        "note": "Routing/argument scores do not measure external tool success. Tool errors are reported separately and do not invalidate a fully measured provider run."
+      },
+      "snapshot_provenance": {
+        "run_hashes_are_authoritative": true,
+        "prompt": {
+          "snapshot_file": "artifacts/versions/v6/system_prompt.md",
+          "recorded_hash": "e4386e4430110a368e3ee25b21ee79a7390e6b629a7110bac7d849e3c84b9d5f",
+          "snapshot_hash": "e4386e4430110a368e3ee25b21ee79a7390e6b629a7110bac7d849e3c84b9d5f",
+          "matches_snapshot": true
+        },
+        "tools": {
+          "snapshot_file": "artifacts/versions/v6/tools.yaml",
+          "recorded_hash": "3b71705b759497516b4dc703c759028baadfa5b1e60201bdac4b9ec94d208d9a",
+          "snapshot_hash": "3b71705b759497516b4dc703c759028baadfa5b1e60201bdac4b9ec94d208d9a",
+          "matches_snapshot": true
+        }
+      }
+    },
+    {
       "version": "v3",
       "suite": "group",
       "run_file": "runs/v3_B_group_openrouter_20261110T192305674708.json",
@@ -978,6 +1239,112 @@
           "snapshot_file": "artifacts/versions/v4/tools.yaml",
           "recorded_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
           "snapshot_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "matches_snapshot": true
+        }
+      }
+    },
+    {
+      "version": "v5",
+      "suite": "group",
+      "run_file": "runs/v5_B_group_openrouter_20261110T233945822009.json",
+      "run_id": "v5_B_group_openrouter_20261110T233945822009",
+      "generated_at": "2026-11-10T23:39:45",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "artifact_version": "v5+pe4386e443011+te329ef788230",
+      "prompt_hash": "e4386e4430110a368e3ee25b21ee79a7390e6b629a7110bac7d849e3c84b9d5f",
+      "tools_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+      "summary": {
+        "total_cases": 10,
+        "measured_cases": 10,
+        "provider_error_cases": 0,
+        "passed_cases": 10,
+        "case_accuracy": 1.0,
+        "tool_routing_accuracy": 1.0,
+        "argument_accuracy": 1.0,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {},
+        "observed_mismatch_counts": {}
+      },
+      "failure_cases": [],
+      "tool_health": {
+        "executed_tool_calls": 9,
+        "tool_error_calls": 0,
+        "tool_error_case_count": 0,
+        "tool_error_case_ids": [],
+        "partial_tool_calls": 0,
+        "partial_case_ids": [],
+        "nested_search_error_count": 0,
+        "errors_by_tool": {},
+        "http_status_counts": {},
+        "error_details": [],
+        "note": "Routing/argument scores do not measure external tool success. Tool errors are reported separately and do not invalidate a fully measured provider run."
+      },
+      "snapshot_provenance": {
+        "run_hashes_are_authoritative": true,
+        "prompt": {
+          "snapshot_file": "artifacts/versions/v5/system_prompt.md",
+          "recorded_hash": "e4386e4430110a368e3ee25b21ee79a7390e6b629a7110bac7d849e3c84b9d5f",
+          "snapshot_hash": "e4386e4430110a368e3ee25b21ee79a7390e6b629a7110bac7d849e3c84b9d5f",
+          "matches_snapshot": true
+        },
+        "tools": {
+          "snapshot_file": "artifacts/versions/v5/tools.yaml",
+          "recorded_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "snapshot_hash": "e329ef788230b5c031fbdb5e5ac64aa7d96788d600567450ceb4cf8ffd6cae62",
+          "matches_snapshot": true
+        }
+      }
+    },
+    {
+      "version": "v6",
+      "suite": "group",
+      "run_file": "runs/v6_B_group_openrouter_20261110T234157985676.json",
+      "run_id": "v6_B_group_openrouter_20261110T234157985676",
+      "generated_at": "2026-11-10T23:41:57",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "artifact_version": "v6+pe4386e443011+t3b71705b7594",
+      "prompt_hash": "e4386e4430110a368e3ee25b21ee79a7390e6b629a7110bac7d849e3c84b9d5f",
+      "tools_hash": "3b71705b759497516b4dc703c759028baadfa5b1e60201bdac4b9ec94d208d9a",
+      "summary": {
+        "total_cases": 10,
+        "measured_cases": 10,
+        "provider_error_cases": 0,
+        "passed_cases": 10,
+        "case_accuracy": 1.0,
+        "tool_routing_accuracy": 1.0,
+        "argument_accuracy": 1.0,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {},
+        "observed_mismatch_counts": {}
+      },
+      "failure_cases": [],
+      "tool_health": {
+        "executed_tool_calls": 9,
+        "tool_error_calls": 0,
+        "tool_error_case_count": 0,
+        "tool_error_case_ids": [],
+        "partial_tool_calls": 0,
+        "partial_case_ids": [],
+        "nested_search_error_count": 0,
+        "errors_by_tool": {},
+        "http_status_counts": {},
+        "error_details": [],
+        "note": "Routing/argument scores do not measure external tool success. Tool errors are reported separately and do not invalidate a fully measured provider run."
+      },
+      "snapshot_provenance": {
+        "run_hashes_are_authoritative": true,
+        "prompt": {
+          "snapshot_file": "artifacts/versions/v6/system_prompt.md",
+          "recorded_hash": "e4386e4430110a368e3ee25b21ee79a7390e6b629a7110bac7d849e3c84b9d5f",
+          "snapshot_hash": "e4386e4430110a368e3ee25b21ee79a7390e6b629a7110bac7d849e3c84b9d5f",
+          "matches_snapshot": true
+        },
+        "tools": {
+          "snapshot_file": "artifacts/versions/v6/tools.yaml",
+          "recorded_hash": "3b71705b759497516b4dc703c759028baadfa5b1e60201bdac4b9ec94d208d9a",
+          "snapshot_hash": "3b71705b759497516b4dc703c759028baadfa5b1e60201bdac4b9ec94d208d9a",
           "matches_snapshot": true
         }
       }

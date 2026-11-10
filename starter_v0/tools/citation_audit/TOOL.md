@@ -30,6 +30,8 @@ clarify thay vì tự tạo nguồn. Danh mục rỗng được phép để tìm
   cú pháp audit. Không kiểm tra URL đích trong cú pháp Markdown, chỉ tra catalog.
 - Bỏ qua code block fenced và inline code. Coverage tính theo đoạn ngăn bằng
   dòng trống, bỏ dòng tiêu đề Markdown; không phải tỷ lệ claim được chứng minh.
+- Ngoặc mở được escape như \[S1] là ví dụ văn bản, không phải dẫn nguồn.
+  Fence đóng phải có cùng loại ký tự, đủ độ dài và không có chữ phía sau.
 
 ## Kết quả và giới hạn
 

@@ -22,14 +22,19 @@ def _mask_code(text: str) -> str:
         match = re.match(r"^\s{0,3}(`{3,}|~{3,})", line)
         if fence_char:
             masked.append("".join("\n" if char == "\n" else " " for char in line))
-            if match and match[1][0] == fence_char and len(match[1]) >= fence_size:
+            if (match and match[1][0] == fence_char and len(match[1]) >= fence_size
+                    and not line[match.end():].strip()):
                 fence_char = ""
             continue
         if match:
             fence_char, fence_size = match[1][0], len(match[1])
             masked.append("".join("\n" if char == "\n" else " " for char in line))
             continue
-        masked.append(re.sub(r"(`+)([^`\n]*?)\1", lambda m: " " * len(m[0]), line))
+        line = re.sub(r"(`+)([^`\n]*?)\1", lambda m: " " * len(m[0]), line)
+        # An odd run of backslashes escapes the bracket; an even run leaves a
+        # real citation. Mask the escape sequence, preserving offsets.
+        line = re.sub(r"(?<!\\)(?:\\\\)*\\\[", lambda m: " " * len(m[0]), line)
+        masked.append(line)
     return "".join(masked)
 
 

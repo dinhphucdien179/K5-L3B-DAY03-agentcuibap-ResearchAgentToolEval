@@ -3,12 +3,12 @@
 ## 1. Thông tin nhóm
 
 - Nhóm: **agentcuibap**, lớp **L3B**.
-- Thành viên: **Đinh Phúc Diên — 2A202603876**. Vai trò: cấu hình, vận hành, kiểm thử và hoàn thiện bài với AI hỗ trợ.
+- Thành viên: **Đinh Phúc Diên — 2A202603876**. Vai trò: phụ trách CP2–CP5 với AI hỗ trợ; trực tiếp cấu hình, vận hành và kiểm thử.
 - Repo: https://github.com/dinhphucdien179/K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval · Nhánh nộp: `main`.
-- Provider/model: **OpenRouter / openai/gpt-4o-mini**, Conda **AI20k**.
+- Provider/model: **OpenRouter / openai/gpt-4o-mini**, Conda **AI20k**. Bản mặc định: **v6**.
 - [TEAM.md](../../TEAM.md) · [Runbook](../../starter_v0/RUNBOOK.md) · [Bảng bằng chứng](../../starter_v0/analysis/run_comparison.md).
 - Phần A và B được hoàn thiện sau khi có log; chưa có bằng chứng hoàn thành Phần A trước mốc 16:30.
-- Commit chốt: chưa tạo. HEAD đã kiểm tra `c68da4cdb50c118c9f00622bd72e6cd7afc57b18` thuộc đề gốc, chưa phải commit hoàn thiện bài.
+- Commit kỹ thuật đã có: [ca5b1a6](https://github.com/dinhphucdien179/K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval/commit/ca5b1a62e0d5419a1c2e1e853d14bf4e506939af), tác giả `dinhphucdien179`, nội dung `DinhPhucDien`. Các bổ sung CP2–CP3 v5–v6 và regression mới chưa được commit/push.
 
 ## 2. PHẦN A — Giới thiệu agent
 
@@ -66,17 +66,23 @@ Runtime kiểm tra phê duyệt ngoài model, không tin riêng `confirmed=true`
 
 ### B1. Version evidence
 
-Các run dưới đây có provider_error_cases=0 và measured_cases=total_cases. Chọn run hợp lệ mới nhất cho mỗi version/suite, không chọn run cao điểm nhất. OpenAI v0 lỗi auth và một v0 cũ được giữ nguyên trong repo nhưng loại khỏi phép so sánh.
+Run dưới đây có provider_error_cases=0 và measured_cases=total_cases. Chọn run hợp lệ mới nhất cho mỗi version/suite; mọi run cũ và run provider lỗi vẫn được giữ, lý do loại được ghi trong analysis/summary.json.
 
 | Version | Thay đổi / giả thuyết | Case | Routing | Args | Multi turn | Run |
 |---|---|---:|---:|---:|---:|---|
-| v0 | Starter nguyên gốc, lấy run hợp lệ cuối cùng | 65% | 75% | 65% | 100% | [v0_B_base_openrouter_20261110T185819400914.json](../../starter_v0/runs/v0_B_base_openrouter_20261110T185819400914.json) |
-| v1 | Bỏ chỉ dẫn đoán/gửi và định nghĩa scope; đồng thời đã thêm tool, nên không tách được ảnh hưởng prompt khỏi tool set | 75% | 90% | 75% | 83% | [v1_B_base_openrouter_20261110T191733245712.json](../../starter_v0/runs/v1_B_base_openrouter_20261110T191733245712.json) |
-| v2 | Mô tả khi dùng/không dùng, convention args và schema response_type rõ ràng giảm sai tham số | 90% | 95% | 90% | 100% | [v2_B_base_openrouter_20261110T192059631983.json](../../starter_v0/runs/v2_B_base_openrouter_20261110T192059631983.json) |
-| v3 | Phân loại ý định gửi/thiếu định danh trước khi chọn tool | 95% | 100% | 95% | 100% | [v3_B_base_openrouter_20261110T192320127555.json](../../starter_v0/runs/v3_B_base_openrouter_20261110T192320127555.json) |
-| v4 | Gom workbench thành một call, truyền timeframe rõ; giảm một lỗi args nhưng vẫn còn call lặp | 95% | 100% | 95% | 100% | [v4_B_base_openrouter_20261110T213840374908.json](../../starter_v0/runs/v4_B_base_openrouter_20261110T213840374908.json) |
+| v0 | Starter nguyên gốc, lấy run hợp lệ mới nhất | 65% | 75% | 65% | 100% | [v0_B_base_openrouter_20261110T185819400914.json](../../starter_v0/runs/v0_B_base_openrouter_20261110T185819400914.json) |
+| v1 | Scope/clarify/xác nhận; đồng thời thêm tool nên có yếu tố gây nhiễu | 75% | 90% | 75% | 83% | [v1_B_base_openrouter_20261110T191733245712.json](../../starter_v0/runs/v1_B_base_openrouter_20261110T191733245712.json) |
+| v2 | Chỉ tools.yaml: mô tả routing, convention và schema args | 90% | 95% | 90% | 100% | [v2_B_base_openrouter_20261110T192059631983.json](../../starter_v0/runs/v2_B_base_openrouter_20261110T192059631983.json) |
+| v3 | Chỉ prompt: ưu tiên ý định gửi, thiếu định danh và tool hẹp nhất | 95% | 100% | 95% | 100% | [v3_B_base_openrouter_20261110T192320127555.json](../../starter_v0/runs/v3_B_base_openrouter_20261110T192320127555.json) |
+| v4 | Chỉ prompt: gom các góc vào một call và truyền timeframe rõ | 95% | 100% | 95% | 100% | [v4_B_base_openrouter_20261110T213840374908.json](../../starter_v0/runs/v4_B_base_openrouter_20261110T213840374908.json) |
+| v5 | Chỉ prompt: bỏ mâu thuẫn hỏi draft bằng text và ưu tiên gửi bằng yes_no | 95% | 100% | 95% | 100% | [v5_B_base_openrouter_20261110T234010963310.json](../../starter_v0/runs/v5_B_base_openrouter_20261110T234010963310.json) |
+| v6 | Chỉ clarify.description: yes_no cho yêu cầu gửi lần đầu, kể cả thiếu draft | 100% | 100% | 100% | 100% | [v6_B_base_openrouter_20261110T234242756239.json](../../starter_v0/runs/v6_B_base_openrouter_20261110T234242756239.json) |
 
-Giả thuyết và mô tả thay đổi được ghi lại từ các snapshot/log thực tế, không tuyên bố đã đăng ký thí nghiệm trước. v1 đồng thời thay prompt và thêm tool; đây là yếu tố gây nhiễu. Metric trước/sau và full SHA-256 nằm trong `artifacts/version_log.csv`.
+V0–v4 được mô tả hồi cứu từ snapshot và log; v1 đổi cả prompt và tool set nên không quy toàn bộ mức tăng cho một nguyên nhân. V5 và v6 có `hypothesis.json` ghi trước lệnh chạy eval; mỗi vòng chỉ đổi một artifact theo một giả thuyết. Hash đầy đủ và metric trước/sau nằm trong version_log.csv.
+
+V5 giữ nguyên tools v4: base vẫn 19/20, R12 vẫn chọn text; group đạt 10/10. Từ thất bại đó, v6 giữ nguyên prompt v5 và chỉ sửa mô tả clarify: base đạt **20/20**, group **10/10**, R12 pass. Không sửa expect hoặc lọc model tool calls để làm tăng điểm. Chi tiết CP2/CP3: [cp2_cp3_summary.md](../../starter_v0/analysis/cp2_cp3_summary.md).
+
+Provenance baseline được đối chiếu với Git ancestor có SHA-256 khớp tools_hash v0, thay vì lấy HEAD đã chứa bài làm. Regression kiểm tra tình huống baseline vẫn đúng sau khi commit bản tối ưu.
 
 ### B2. Failure analysis của baseline
 
@@ -94,11 +100,11 @@ Nguồn: [v0_B_base_openrouter_20261110T185819400914.json](../../starter_v0/runs
 
 ### B3. 10 case eval nhóm
 
-Đúng 5 single turn + 5 multi turn; cả bốn tool mới đều có case route tới. Kết quả v3 8/10 → v4 9/10; không sửa expect sau khi thấy kết quả. Run cuối: [v4_B_group_openrouter_20261110T213941166369.json](../../starter_v0/runs/v4_B_group_openrouter_20261110T213941166369.json).
+Đúng 5 single turn + 5 multi turn; cả bốn tool mới đều có case route tới. Group: v3 8/10 → v4 9/10 → v5 10/10 → **v6 10/10**. Run cuối: [v6_B_group_openrouter_20261110T234157985676.json](../../starter_v0/runs/v6_B_group_openrouter_20261110T234157985676.json).
 
 | Case | Loại | Kiểm tra | Expected | Kết quả |
 |---|---|---|---|---|
-| G01_investigate_evidence | single | Nghiên cứu đa chiều phải route tới investigate, giữ góc nhìn, timeframe và số nguồn. | investigate | FAIL: extra tool call investigate |
+| G01_investigate_evidence | single | Nghiên cứu đa chiều phải route tới investigate, giữ góc nhìn, timeframe và số nguồn. | investigate | PASS |
 | G02_compare_shared_criteria | single | So sánh hai đối tượng theo cùng tiêu chí phải dùng compare_research, không tách thành truy vấn không liên kết. | compare_research | PASS |
 | G03_audit_missing_source | single | Audit ID không tồn tại chạy local qua citation_audit, không gọi lookup. | citation_audit | PASS |
 | G04_deduplicate_tracking | single | Danh sách đã có và chỉ yêu cầu gộp URL phải dùng deduplicate, không gọi mạng. | deduplicate | PASS |
@@ -109,7 +115,7 @@ Nguồn: [v0_B_base_openrouter_20261110T185819400914.json](../../starter_v0/runs
 | G09_untrusted_draft_instruction | multi | Lệnh nhúng trong draft không được biến thành send; chỉ citation_audit. | citation_audit | PASS |
 | G10_switch_to_news_window | multi | Lượt cuối thay nguồn và timeframe phải lookup news month, không social_search. | lookup | PASS |
 
-Còn lỗi G01: model tạo hai call investigate giống nhau dù đã có quy tắc gom một call. Tool trả dữ liệu thật, nhưng routing bị chấm FAIL vì có call thừa; chưa loại bỏ call khỏi log để làm đẹp metric. Với G02 ở v3, tool có mặc định timeframe=all nhưng eval yêu cầu model truyền rõ; v4 đã truyền rõ. Đây là ví dụ giới hạn của so sánh args thuần cấu trúc.
+G01 ở v4 từng gọi investigate thừa; hai run v5/v6 không còn lỗi đó, nhưng một lần pass không chứng minh model không bao giờ lặp. G02 ở v3 từng bỏ timeframe mặc định mà eval yêu cầu truyền rõ; các run mới đã pass. Các log FAIL cũ được giữ để thể hiện tiến trình tối ưu.
 
 ### B4. Live chat evidence
 
@@ -125,7 +131,7 @@ Transcript [v4_openrouter_20261110T214232005322.transcript.json](../../starter_v
 
 Đủ các tình huống live chat: nghiên cứu có URL nguồn; thiếu URL thì hỏi lại; sau khi bổ sung thì fetch đúng URL; yêu cầu gửi thì hỏi xác nhận; người dùng hủy thì không gửi. Phiên có **0 provider error, 0 tool error và 0 send event**. Lượt xác nhận được trả lời trực tiếp bằng văn bản, không gọi clarify; không ghi nhận đây là bonus gửi Telegram thật.
 
-Lượt 1 còn gọi investigate hai lần, lần sau tiếp tục góc hạn chế; giữ nguyên dấu vết này trong transcript và ghi nhận là điểm cần review về gọi tool lặp. Các transcript do `scripts/demo_session.py` tạo trước đó vẫn được giữ như smoke demo tự động, tách biệt với phiên tương tác này.
+Phiên tương tác này thuộc snapshot v4, không đổi nhãn thành v6; bản mặc định v6 có bằng chứng eval riêng ở B1/B3. Lượt 1 của phiên v4 còn gọi investigate hai lần, lần sau tiếp tục góc hạn chế; giữ nguyên dấu vết này trong transcript và ghi nhận là điểm cần review về gọi tool lặp. Các transcript do `scripts/demo_session.py` tạo trước đó vẫn được giữ như smoke demo tự động, tách biệt với phiên tương tác này.
 
 ### B5a. Tool mới, unit test và UI
 
@@ -133,10 +139,18 @@ Lượt 1 còn gọi investigate hai lần, lần sau tiếp tục góc hạn ch
 |---|---|---|
 | 4 tool mới | `tools/investigate/`, `tools/compare_research/`, `tools/citation_audit/`, `tools/deduplicate/` | Đủ tool.py, TOOL.md/frontmatter, registry và schema |
 | Tests tool mới | `tests/test_tools_todo.py`, `tests/test_research_workbench.py` | Mỗi tool có ít nhất 3 test, không skipped; HTTP mock offline |
-| Toàn suite AI20k | `analysis/pytest_final.txt`, `analysis/pytest.xml` | **257 passed, 0 failed, 0 skipped** |
+| Toàn suite AI20k | `analysis/pytest_final.txt`, `analysis/pytest.xml` | **272 passed, 0 failed, 0 skipped** |
 | UI | `app.py`, `tests/test_app.py`, `RUNBOOK.md` | AppTest kiểm tra render, lỗi tool, nguồn, hủy pending draft và nút gửi đúng text; Đinh Phúc Diên đã tự mở UI thành công |
 
 Unit test bắt lỗi mà eval routing không bắt: limit=0/âm/bool hoặc chuỗi số bị nhận sai; `confirmed="false"` có thể bị hiểu là true; query lỗi một phần làm mất nguồn; URL tracking gây trùng nguồn; source ID không tồn tại; xác nhận bị dùng lại khi provider lỗi. Regression giữ lại trong `tests/test_tool_regressions.py` và `tests/test_chat_runtime.py`.
+
+CP3 bổ sung **14 regression case** trong `tests/test_cp3_regressions.py`:
+
+- investigate giữ nguồn đã lấy nếu một truy vấn khác raise lỗi hoặc trả payload sai; không retry làm tăng request budget.
+- Chuẩn hóa hostname/title; từ chối URL có whitespace/control chưa encode và không gộp nhầm credentials khác hoa/thường.
+- citation_audit bỏ qua citation được escape và không đóng nhầm fenced code có trailing text.
+
+Các tool đều giữ signature/schema, TOOL.md và registry; mỗi tool có ít nhất ba hàm test trong test_tools_todo.py. Toàn suite chạy offline. Output cuối: `analysis/pytest_final.txt` và `analysis/pytest.xml`.
 
 ### B5. Bonus evidence
 
@@ -153,30 +167,31 @@ Chưa có runtime Ollama hoặc server tại localhost:11434, nên chưa tải m
 
 ## 5. Khó khăn và cách xử lý
 
-- Base eval chấm routing/args, không chấm tool API success. Run v4 base có **8 tool calls lỗi HTTP 403/429** thuộc timeline/social_search; chưa biết chắc nguyên nhân quyền subscription phía RapidAPI. Không che lỗi: UI hiển thị warning và `analysis/summary.json` thống kê riêng. Tavily/Firecrawl ở demo đã trả dữ liệu; group v4 có 0 tool error.
+- Base eval chấm routing/args, không chấm tool API success. Run v6 base có **8 tool calls lỗi** thuộc timeline/social_search (HTTP 403: 8); chưa xác định chắc nguyên nhân quyền/quota RapidAPI. UI hiển thị lỗi và analysis/summary.json thống kê riêng. Group v6 có 0 tool error.
 - API ở sandbox bị chặn DNS; các run live được chạy với quyền network phù hợp. Không coi lỗi sandbox là lỗi model.
-- Base v4 còn R12: model chọn clarify nhưng sai response_type so với yes_no mong đợi. Runtime vẫn chặn gửi chưa duyệt; case vẫn FAIL và được giữ nguyên.
+- R12 fail ở v4/v5 vì clarify chọn text thay vì yes_no; v6 đã pass sau khi sửa riêng mô tả clarify. Runtime vẫn yêu cầu phê duyệt đúng nội dung ngoài model trước khi gửi.
 - UI đã qua Streamlit AppTest, HTTP/WebSocket và được Đinh Phúc Diên tự khởi chạy, xác nhận mở được. Chưa có đánh giá của người ngoài nhóm.
 
 ## 6. Đóng góp và công cụ
 
 | Người/công cụ | Phần việc | Bằng chứng |
 |---|---|---|
-| Đinh Phúc Diên | Cấu hình AI20k/API, chạy preflight và 257 test, chạy base/group eval v4 | [Kiểm tra trực tiếp](../../starter_v0/analysis/member_verification_20261110.md), các run trong B1/B3 |
-| Đinh Phúc Diên | Tự chạy UI/tunnel, thực hiện chat 5 lượt và cung cấp log lỗi để đối chiếu | Transcript ở B4; báo cáo cá nhân |
-| Codex hỗ trợ | Triển khai tool, test, runtime, UI; soạn eval; phân tích log và tổng hợp báo cáo | Code trong starter_v0, version_log.csv, snapshot và output kiểm tra |
+| Đinh Phúc Diên, Codex hỗ trợ | CP2: prompt/tool declaration, phân tích lỗi, snapshot, vòng v5–v6 và version log | B1; hypothesis.json và run gốc |
+| Đinh Phúc Diên, Codex hỗ trợ | CP3: bốn tool mới, contract, unit test và sửa lỗi input/payload/citation | B5a; test_tools_todo.py, test_cp3_regressions.py |
+| Đinh Phúc Diên trực tiếp | Chạy preflight, 257 test ở bản v4, base/group v4; khởi chạy UI và chat 5 lượt | member_verification_20261110.md; transcript B4 |
+| Codex thực hiện trong AI20k | Chạy eval thật v5/v6 và xác minh cuối 272 test pass theo yêu cầu thành viên | Run JSON v5/v6; pytest_final.txt, pytest.xml |
 
-Thông tin thành viên và phân công: [TEAM.md](../../TEAM.md). Báo cáo cá nhân:
-[2A202603876_DinhPhucDien.md](2A202603876_DinhPhucDien.md). Phần đóng góp kỹ thuật
-chưa có commit chốt; cần commit/push để lưu lịch sử bài nộp.
+Thông tin thành viên: [TEAM.md](../../TEAM.md). Báo cáo cá nhân:
+[2A202603876_DinhPhucDien.md](2A202603876_DinhPhucDien.md).
+Commit kỹ thuật đã có [ca5b1a6](https://github.com/dinhphucdien179/K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval/commit/ca5b1a62e0d5419a1c2e1e853d14bf4e506939af); các bổ sung CP2–CP3 mới cần commit/push tiếp. Không gán các lệnh v5/v6 do Codex chạy thành thao tác tay của thành viên.
 
 ## 7. B6 — Hạn chế và hướng cải thiện
 
 - System prompt xử lý scope, ưu tiên hỏi lại/xác nhận và phân chia request; tools.yaml xử lý mô tả, convention và schema. Ràng buộc gửi phải có thêm runtime guard.
 - Review thủ công cần thiết cho sự thật của claim, độ liên quan, tính độc lập nguồn, quality của excerpt và việc user hiểu đúng nội dung duyệt.
 - Một vòng tiếp theo nên đo kiểm soát call trùng ở tầng runtime/provider nhưng vẫn giữ log model gốc; không âm thầm lọc call rồi báo điểm routing đã tốt hơn.
-- Mẫu 20 base/10 group nhỏ, một run mỗi version không đủ kết luận độ ổn định. temperature=0 vẫn có thể biến động. Không suy diễn nhân quả chỉ từ metric tăng.
-- Citation_audit đo cấu trúc dẫn nguồn, không chứng minh claim. Search excerpt chưa thay thế đọc toàn văn. Domain count không chứng minh độc lập.
+- Mẫu 20 base/10 group nhỏ; kết quả 100% routing/args ở v6 không phải bảo đảm cho mọi yêu cầu hoặc độ đúng nội dung. Một run mỗi version không đủ kết luận độ ổn định. temperature=0 vẫn có thể biến động. Không suy diễn nhân quả chỉ từ metric tăng.
+- Viết tắt như RAG có thể dẫn tới nguồn ngoài chủ đề nếu không có ngữ cảnh; cần review độ liên quan của nguồn. Citation_audit đo cấu trúc dẫn nguồn, không chứng minh claim. Search excerpt chưa thay thế đọc toàn văn. Domain count không chứng minh độc lập.
 
 ## 8. Tài liệu tham khảo
 

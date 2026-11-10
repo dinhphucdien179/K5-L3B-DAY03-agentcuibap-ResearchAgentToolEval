@@ -42,10 +42,15 @@ def investigate_topic(
     topic = topic.strip()
     for angle in angles:
         query = f"{topic} — {angle}"
-        result = web_search(query=query, topic="general",
-                            timeframe=None if timeframe == "all" else timeframe,
-                            max_results=sources_per_angle)
+        try:
+            result = web_search(query=query, topic="general",
+                                timeframe=None if timeframe == "all" else timeframe,
+                                max_results=sources_per_angle)
+        except Exception as exc:
+            result = {"error": type(exc).__name__, "message": str(exc)}
         section: dict[str, Any] = {"angle": angle, "query": query, "source_ids": []}
+        if not isinstance(result, dict):
+            result = {"error": "InvalidSearchResponse", "message": "Search response must be an object"}
         if "error" in result:
             failures.append({"angle": angle, "error": result["error"],
                              "message": result.get("message", "Search failed")})
@@ -54,7 +59,10 @@ def investigate_topic(
             continue
         successful_searches += 1
         skipped = 0
-        for item in result.get("items", [])[:sources_per_angle]:
+        items = result.get("items", [])
+        if not isinstance(items, list):
+            items = []
+        for item in items[:sources_per_angle]:
             if not isinstance(item, dict) or not isinstance(item.get("url"), str):
                 skipped += 1
                 continue
@@ -68,9 +76,10 @@ def investigate_topic(
                 skipped += 1
                 continue
             if key not in sources:
-                sources[key] = {"id": f"S{len(sources) + 1}", "url": item["url"],
-                                "title": item.get("title") or "Untitled",
-                                "source": domain(item["url"]), "excerpts": []}
+                title = item.get("title")
+                sources[key] = {"id": f"S{len(sources) + 1}", "url": item["url"].strip(),
+                                "title": title if isinstance(title, str) and title.strip() else "Untitled",
+                                "source": domain(key), "excerpts": []}
             source = sources[key]
             source["excerpts"].append({"angle": angle, "query": query, "text": excerpt[:2000]})
             if source["id"] not in section["source_ids"]:

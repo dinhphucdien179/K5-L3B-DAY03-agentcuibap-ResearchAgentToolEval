@@ -1,0 +1,14 @@
+{
+  "version": "v6",
+  "parent": "v5",
+  "recorded_before_eval": "2026-11-10T23:41:05+07:00",
+  "changed_artifact": "tools.yaml: clarify.description only",
+  "hypothesis": "When v5 prompt-only correction still leaves R12 text, an explicit intent-priority exception in clarify tool description should select yes_no for initial publishing requests even without a draft.",
+  "primary_case": "R12_confirm_before_send",
+  "regression_suites": [
+    "base",
+    "group"
+  ],
+  "base_accuracy_before": 0.95,
+  "group_accuracy_before": 1.0
+}
