@@ -1,97 +1,67 @@
-# Báo cáo cá nhân — Lê Nguyễn Anh Nhân
+# Báo cáo cá nhân — LeNguyenAnhNhan-2A202603838
 
-## 1. Thông tin
 
-- Họ tên: **Lê Nguyễn Anh Nhân**.
-- MSSV: **2A202603838**.
-- Nhóm: **agentcuibap**, lớp **L3B**.
+## 1. Thông tin thành viên
 
-## 2. Phần việc tôi phụ trách
+- Họ tên: **Lê Nguyễn Anh Nhân**
+- MSSV: **2A202603838**
+- Email: 26ai.nhanlna@vinuni.edu.vn
 
-Theo [phân công của nhóm](../../TEAM.md), tôi phụ trách eval nhóm, giao diện
-và pipeline, transcript demo và tổng hợp báo cáo. Trọng tâm của tôi là làm
-cho quá trình kiểm tra có dữ liệu đối chiếu: model nhận gì, chọn tool nào,
-implementation trả gì và giao diện hiển thị kết quả ra sao.
 
-## 3. Nội dung thực hiện
+## 2. Phần việc phụ trách
 
-### CP4 — Eval nhóm
 
-Tôi tập trung thiết kế và đối chiếu các tình huống hỏi thiếu dữ liệu, sửa
-tham số qua hội thoại, yêu cầu nhiều nguồn và ranh giới gửi nội dung. Với
-`research_board`, các case kiểm tra cả yêu cầu dựng bản đồ nguồn ở một lượt
-và việc sửa khoảng thời gian, số lượng, query so sánh ở nhiều lượt.
+| Gói | Trách nhiệm | Sản phẩm và tiêu chí nghiệm thu |
+|---|---|---|
+| 1. Eval nhóm | CP4: 10 case gốc, freeze dataset, run group và B3 | Đúng 5 single + 5 multi, có case tool mới, metadata đầy đủ; không sửa case sau khi biết điểm |
+| 2. UI và live evidence | CP5: chat, research desk, graph và pipeline inspector; transcript/B4 | Hiển thị lỗi thật, chặn send, tách đường trực tiếp với model routing; payload được redact |
+| 3. Tích hợp và review chéo | Tích hợp Phần A/B, đối chiếu checklist và kiểm thử; review kết quả CP2 với Diên, lỗi tool với Hiệp 
 
-Bộ Groq được đóng băng trước lần đánh giá đã lưu và đạt 10/10 với model
-`openai/gpt-oss-120b`, không có provider error. Tôi phân biệt kết quả đó với
-trạng thái thực thi: một số API mạng xã hội vẫn trả HTTPError và có câu trả
-lời cần review tay dù case được chấm PASS.
+## 3. Đóng góp cụ thể
 
-Bộ nộp hiện tại được chốt chung ở đúng 10 case: 5 single turn, 5 multi turn,
-bao phủ cả 5 tool mới. Bộ này có khác biệt với bộ Groq đã đo; tôi không dùng
-điểm 10/10 cũ để khẳng định điểm của bộ hiện tại.
+### 3.1. Thiết kế và đọc eval nhóm
 
-### CP5 — UI và pipeline
+`eval_group.json` có đúng 10 case: 5 single-turn, 5 multi-turn; hai case route tới `research_board`. Các tình huống bám lỗi thật như tự đoán dữ liệu, sửa query/thời gian/số lượng trong hội thoại, đổi URL và chưa phê duyệt gửi. Case chỉ kiểm tra args cần thiết; dataset được chốt trước khi chạy.
 
-Phần giao diện tôi phụ trách có chat, Research Board, pipeline và execution
-log. UI hiện tại cho phép chọn provider/model và dùng chung registry 15 tool.
-Tôi chú ý tách hai luồng tương tác: chat để model chọn tool, còn Research desk
-là thao tác gọi `research_board` trực tiếp từ form.
+Run group dùng Groq `openai/gpt-oss-120b`, đo đủ 10/10, 0 provider error và 10 PASS. Đây là điểm routing/args của một suite riêng; không thay điểm base 90%. G09/G10 còn lỗi HTTP của social API. G05 PASS `no_tool` nhưng model mô tả sai backend của board, cần review tay.
 
-Pipeline hiển thị thứ tự system prompt, policy, lịch sử phiên và câu hỏi;
-schema tool được gửi riêng cho provider. Snapshot của từng request được ghi
-tại đầu vào adapter và đã che dữ liệu nhạy cảm. Đây không phải bản bắt gói
-HTTP, cũng không phải phần suy nghĩ nội bộ của model.
+### 3.2. UI, pipeline và ranh giới
 
-Khi tool lỗi hoặc chỉ có dữ liệu một phần, UI giữ lại trạng thái và nguồn
-đã thu được trong trace. Mỗi phiên có lịch sử và transcript riêng. Model
-không được tự gửi Telegram; mặc định khóa gửi, còn chế độ cho phép gửi cần
-nút duyệt đúng bản nháp. Hủy hoặc bắt đầu phiên mới phải làm hết hiệu lực
-bản nháp đang chờ.
+NEXUS dùng Streamlit, có chat agent và research desk. Chat lắp system prompt → policy public UI → history phiên → câu hỏi, gửi schema riêng cho Groq rồi thực thi tool qua registry. Kết quả quay về context bằng text `TOOL_RESULTS_JSON`; `clarify` dừng chờ người dùng. Research desk gọi thẳng `research_board`, không được dùng để chứng minh model tự route đúng.
 
-### Transcript và báo cáo
+UI khóa `send` ngay tại runtime kể cả `confirmed=true`, hiển thị lỗi/partial riêng và giữ transcript theo session. Pipeline inspector cho xem cấu hình hiện tại cùng snapshot đầu vào adapter của từng vòng mới; không dựng prompt quá khứ cho lượt cũ, không suy diễn HTTP đã gửi khi adapter lỗi và không ghi reasoning riêng của model.
 
-Tôi phụ trách tổng hợp các tình huống demo và liên kết transcript với báo cáo.
-Phiên Groq 20b có bốn lượt: dựng board/tổng hợp, hỏi URL còn thiếu, đọc URL
-được bổ sung và hỏi thông tin gửi. Phiên tiếp nối ghi thêm bước hỏi xác nhận.
-Đây là tình huống thử nghiệm soạn sẵn qua API thật; chưa có gửi Telegram.
+### 3.3. Kiểm thử, triển khai và giới hạn
 
-Lần thử 120b gặp quota 429 được giữ lại để giải thích việc đổi model cho demo.
-Các run dùng để so sánh CP2 và run group vẫn được đọc theo model ghi trong
-chính run đó. Tôi không dùng các lượt lỗi quota làm bằng chứng hoàn tất demo.
+CLI có phiên 20b hoàn chỉnh và lượt tiếp nối xác nhận yes/no; lần 120b lỗi quota được giữ riêng. UI dùng 20b do ngân sách quota, không đổi model trong chuỗi so sánh CP2 hoặc run group. Bằng chứng AppTest gồm tool/API thật và test offline. Tại checkpoint pipeline toàn suite 195 passed, 0 failed/skipped; có 11 test mới cho snapshot, flow và reset phiên.
 
-## 4. Bằng chứng
+Link Cloudflare là tạm thời, cần giữ máy/app/tunnel chạy. Kiểm tra browser visual bị Computer Use chặn, nên không nhận là đã thử mobile hay có nhóm khác dùng thử.
 
-| Nội dung | Bằng chứng |
+## 4. Bằng chứng và cách kiểm tra
+
+| Bằng chứng | Nội dung đối chiếu |
 |---|---|
-| Bộ eval hiện tại | [eval_group.json](../../starter_v0/data/eval_group.json), [test dataset](../../starter_v0/tests/test_eval_group.py) |
-| Bộ Groq đã đo | [Dataset đóng băng](../../starter_v0/artifacts/cp4_cp5/eval_group.frozen.json), [freeze metadata](../../starter_v0/artifacts/cp4_cp5/group_freeze.json) |
-| Kết quả group Groq | [Run 10/10](../../starter_v0/runs/cp3-research-board-v2_B_group_groq_20261111T022506173733.json), [phân tích lỗi và giới hạn](../../starter_v0/artifacts/cp4_cp5/group_analysis.json) |
-| UI và quan sát pipeline | [app.py](../../starter_v0/app.py), [runtime](../../starter_v0/ui/runtime.py), [pipeline](../../starter_v0/ui/pipeline.py) |
-| Chat demo qua API thật | [Phiên 20b](../../starter_v0/transcripts/cp3-research-board-v2_groq_20261111T023231396178.transcript.json), [lượt tiếp nối](../../starter_v0/transcripts/cp5_confirmation_20b_20261111T024124787005.transcript.json) |
-| AppTest với request thật | [live_pipeline_check.json](../../starter_v0/artifacts/cp5_pipeline/live_pipeline_check.json) |
-| Kiểm tra code hiện tại | [validation.json](../../starter_v0/analysis/validation.json), [JUnit XML](../../starter_v0/analysis/pytest_final.xml) |
-| Tổng hợp kết quả | [Báo cáo nhóm](group_report.md) |
+| [Dataset nhóm](../../starter_v0/data/eval_group.json) và [group freeze](../../starter_v0/artifacts/cp4_cp5/group_freeze.json) | 10 case, cấu trúc/metadata và hash trước run |
+| [Run group](../../starter_v0/runs/cp3-research-board-v2_B_group_groq_20261111T022506173733.json) và [phân tích](../../starter_v0/artifacts/cp4_cp5/group_analysis.json) | PASS routing/args tách khỏi HTTPError và review nội dung |
+| [app.py](../../starter_v0/app.py), [runtime](../../starter_v0/ui/runtime.py), [pipeline](../../starter_v0/ui/pipeline.py) | Luồng chat/direct form, send guard, context và trace |
+| [Transcript CLI 20b](../../starter_v0/transcripts/cp3-research-board-v2_groq_20261111T023231396178.transcript.json) và [xác nhận tiếp nối](../../starter_v0/transcripts/cp5_confirmation_20b_20261111T024124787005.transcript.json) | Research, thiếu URL/bổ sung URL, hỏi duyệt trước gửi |
+| [Bằng chứng CP4/CP5](../../starter_v0/artifacts/cp4_cp5/README.md) và [pipeline](../../starter_v0/artifacts/cp5_pipeline/README.md) | Run/transcript/UI, triển khai, live AppTest và giới hạn QA |
+| [Pytest pipeline](../../starter_v0/artifacts/cp5_pipeline/pytest.txt) | 195 passed tại checkpoint pipeline |
+| [Báo cáo nhóm](group_report.md) | Phần A, B3/B4 và checklist bằng chứng |
 
-## 5. Cách tôi đối chiếu kết quả
+Các bước tự kiểm tra thuộc phần việc: kiểm tra count/schema của dataset; đối chiếu build/hash; đọc tool events/error chứ không chỉ summary; thử ba ranh giới research/thiếu dữ liệu/gửi; kiểm tra transcript không lộ credential và test reset không mang lịch sử phiên cũ sang.
 
-Tôi kiểm tra số case, tỷ lệ single/multi, schema arguments và các case route
-tới tool mới. Khi đọc run, tôi xem cả summary, tool event và lỗi trả về. Khi
-đọc pipeline, tôi phân biệt tool call model đề xuất với tool thực sự đã chạy,
-không coi một node trong sơ đồ là bằng chứng thực thi.
+- Commit cá nhân: LeNguyenAnhNhan
 
-Bản chung hiện tại có **407 test pass, 0 fail, 0 skip**, gồm kiểm tra dataset,
-runtime và AppTest. Các mốc 184 hoặc 195 test trong artifact là checkpoint
-trước đó. Kiểm tra live của checkpoint pipeline cũng không thay thế việc
-chạy lại model/API cho v7; hiện chưa có run đó.
+### AI/công cụ và cách tự kiểm tra
 
-## 6. Tự đánh giá và phần cần cải thiện
+- **AI/công cụ cá nhân đã dùng:** Codex, Python/pytest, Streamlit và Git.
+- **Nội dung AI hỗ trợ và phần tự sửa:** AI hỗ trợ code UI, test và đọc log; mình định hướng yêu cầu, điều chỉnh demo và báo cáo.
+- **Cách cá nhân tự kiểm tra kết quả:** Đối chiếu case với tool calls/args, đọc transcript và lỗi tool; tham chiếu kết quả 195 test passed.
+- **Điều đã hiểu và có thể giải thích khi vấn đáp:** Vai trò của prompt, tool schema, runtime; luồng gọi tool và điều kiện hỏi lại, xác nhận hoặc dừng. Routing đúng chưa bảo đảm API và nội dung trả lời đúng.
+- **Khó khăn, phần cần cải thiện:** Quota model, lỗi API và phân tích trace; cần kiểm tra thêm giao diện và chất lượng câu trả lời.
+- **Tự đánh giá đóng góp:** Phụ trách eval nhóm, UI/pipeline, transcript và tổng hợp báo cáo theo phân công.
 
-Phần tôi tập trung là khả năng quan sát và đối chiếu: câu trả lời cần đi kèm
-nguồn, trace và trạng thái lỗi; báo cáo cần dẫn tới đúng run và snapshot.
-Điều tôi rút ra là routing đúng chưa bảo đảm tool thành công, và hiển thị
-được graph chưa có nghĩa các nguồn đã được xác minh.
+## 5. Tự đánh giá
 
-Tôi cần bổ sung kiểm tra trực quan trên trình duyệt/mobile và thử với người
-ngoài nhóm. Link Cloudflare chỉ là link tạm, cần giữ ứng dụng và tunnel chạy.
-Hiện chưa có bằng chứng gửi Telegram thật hoặc phản hồi người ngoài nhóm.
+Tập trung hiểu luồng agent, phân biệt lỗi prompt/tool với lỗi API và đối chiếu kết quả bằng log. Khi tối ưu cần giữ cố định model, bộ case và có giả thuyết cho từng vòng. Phần cần cải thiện là đọc trace chủ động hơn và kiểm tra thêm chất lượng nguồn, câu trả lời cùng trải nghiệm UI.
