@@ -1,0 +1,60 @@
+{
+  "version": "v7",
+  "entrypoint": "app.py",
+  "environment": "AI20k",
+  "tool_count": 15,
+  "group_suite": {
+    "path": "data/eval_group.json",
+    "cases": 10,
+    "single_turn": 5,
+    "multi_turn": 5,
+    "new_tools_covered": [
+      "citation_audit",
+      "compare_research",
+      "deduplicate",
+      "investigate",
+      "research_board"
+    ]
+  },
+  "pytest": {
+    "tests": 407,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "duration_seconds": 9.423,
+    "command": "conda run --no-capture-output -n AI20k python -m pytest -q --junitxml=analysis/pytest_final.xml",
+    "report": "analysis/pytest_final.xml"
+  },
+  "protected_files": [
+    {
+      "path": "starter_v0/data/eval_base.json",
+      "sha256": "c917b3606e88643c27a479c43236f76ffa701ff271aa6d24c30e223fefd72c44",
+      "matches_committed_content": true
+    },
+    {
+      "path": "starter_v0/data/eval_research_extension.json",
+      "sha256": "73a8f4c72675e4a8ac9bb9e7b2a4de6082244c92076078cd96dd5eb0f4307f05",
+      "matches_committed_content": true
+    },
+    {
+      "path": "starter_v0/tests/test_tool_contract.py",
+      "sha256": "94824e3e502d48dd741b7c67fa2148cff651a4875c514444c1190b0673c52b9d",
+      "matches_committed_content": true
+    }
+  ],
+  "missing_document_links": [],
+  "conflict_marker_files": [],
+  "configured_secret_scan": {
+    "candidate_files": 239,
+    "matching_files": []
+  },
+  "model_evaluation": {
+    "current_version_run_available": false,
+    "note": "Saved model scores belong to their recorded snapshots; no API evaluation was run for v7."
+  },
+  "artifacts_sha256": {
+    "artifacts/system_prompt.md": "a8a7230b76c9030e042f480817946087de64149e55ff575e3a43cf2e7a659582",
+    "artifacts/tools.yaml": "e9d4f2e0872c461f67928c14b27eee44ed3b0fafdddf437789334b0682a04a82",
+    "data/eval_group.json": "5d28d943394c7e0210ccc9d6cc59a21fe52ebedffc3bf1472043ab31169218f4"
+  }
+}

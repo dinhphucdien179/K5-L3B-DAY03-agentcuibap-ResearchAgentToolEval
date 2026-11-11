@@ -1,0 +1,33 @@
+$ D:\miniconda3\envs\lab3\python.exe -B -m pytest -p no:cacheprovider
+============================= test session starts =============================
+platform win32 -- Python 3.11.18, pytest-9.2.0, pluggy-1.7.0
+rootdir: D:\StudiAI20K\lab3\K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval\starter_v0
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.16.0
+collected 79 items
+
+tests\test_tool_contract.py ............................................ [ 55%]
+...........                                                              [ 69%]
+tests\test_tools_examples.py .......                                     [ 78%]
+tests\test_tools_todo.py sssssssssssssssss                               [100%]
+
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_tools_todo.py:26: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:33: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:38: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:43: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:51: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:55: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:62: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:70: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:74: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:82: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:87: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:93: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:98: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:104: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:114: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:118: TODO CP3 (student): implement this test
+SKIPPED [1] tests\test_tools_todo.py:122: TODO CP3 (student): implement this test
+======================= 62 passed, 17 skipped in 0.25s ========================

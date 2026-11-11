@@ -8,5 +8,5 @@ PyYAML>=6.0
 pypdf>=4.0.0
 # Tool unit tests:
 pytest>=8.0.0
-# Research Studio UI:
-streamlit>=1.40,<2
+# CP5 local UI (server-side Python agent; public link via Cloudflare Tunnel):
+streamlit>=1.67.0,<2.0

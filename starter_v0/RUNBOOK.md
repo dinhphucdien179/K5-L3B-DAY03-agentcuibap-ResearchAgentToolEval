@@ -27,7 +27,10 @@ conda run --no-capture-output -n AI20k python -m streamlit run app.py --server.a
 
 Mở **http://localhost:8501**. Trong thanh bên, chọn **OpenRouter** và model
 **`openai/gpt-4o-mini`**, rồi nhập câu hỏi hoặc chọn prompt mẫu.
-Xem **Theo dõi agent** để kiểm tra tool; bấm **Tải transcript JSON** để lưu phiên demo.
+Dùng tab **Research board** để dựng bản đồ nguồn, **Pipeline & prompt** để xem request và **Execution log** để kiểm tra tool. Tải transcript ở thanh bên.
+
+Muốn dùng Groq, thêm `GROQ_API_KEY` vào `.env`, chọn `groq` ở thanh bên.
+Telegram mặc định bị khóa; demo gửi thật cần `RESEARCH_ALLOW_SEND=1`, token/chat ID và nút duyệt đúng bản nháp.
 
 ## 3. Chia sẻ link — terminal 2 (tuỳ chọn)
 

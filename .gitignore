@@ -22,3 +22,9 @@ arxiv_papers/
 Thumbs.db
 .idea/
 .vscode/
+
+# Machine-specific demo process state; keep evidence JSON and test reports.
+starter_v0/artifacts/**/*.pid
+starter_v0/artifacts/**/streamlit.*.log
+starter_v0/artifacts/**/tunnel.*.log
+starter_v0/analysis/tunnel.log

@@ -1,0 +1,86 @@
+{
+  "transcript_id": "ui_87b6c4ad7e5c40f585ab1e87adbce26a",
+  "version": "cp5-research-board-v2",
+  "artifact_version": "cp5-research-board-v2+pa9d2bb5bce97+t869e5f2bbd6d",
+  "prompt_hash": "a9d2bb5bce97f577739cbf5cb9e8093a7802b2093f452915a650c3ed68052a38",
+  "tools_hash": "869e5f2bbd6de85257c5a93089ccaabef36d3f9b8145ed0332ee7b2acb5d7faa",
+  "provider": "groq",
+  "model": "openai/gpt-oss-20b",
+  "system_prompt": "artifacts/system_prompt.md",
+  "tools": "artifacts/tools.yaml",
+  "history_window": "session-local, bounded to 70 messages",
+  "max_tool_rounds": 4,
+  "interface": "NEXUS Streamlit",
+  "deployment_policy": "public_read_only_delivery_blocked",
+  "ui_policy_hash": "9f1ece38c8f5f754067e67fcc19cbff8c6f68059b9f104119c9d1bd4b5a89245",
+  "ui_runtime_hash": "1b3d8c0e4440169713676344d4953cfff3a18f2f366c853b40f3c9c44245faf8",
+  "execution_limits": {
+    "tool_rounds": 4,
+    "tool_calls_per_turn": 8,
+    "session_turns": 30,
+    "model_context_chars": 64000
+  },
+  "created_at": "2026-11-10T23:54:19+00:00",
+  "updated_at": "2026-11-10T23:54:31+00:00",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T23:54:20+00:00",
+      "ended_at": "2026-11-10T23:54:31+00:00",
+      "user": "Đọc nội dung bài viết giúp tui. Tui chưa đưa URL, hãy hỏi lại để tui bổ sung.",
+      "interaction": "agent_chat",
+      "duration_seconds": 10.05,
+      "ui_policy_hash": "9f1ece38c8f5f754067e67fcc19cbff8c6f68059b9f104119c9d1bd4b5a89245",
+      "ui_runtime_hash": "1b3d8c0e4440169713676344d4953cfff3a18f2f366c853b40f3c9c44245faf8",
+      "status": "waiting_for_user",
+      "assistant_text": "Bạn vui lòng cung cấp URL của bài viết mà bạn muốn đọc nội dung?",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "",
+          "tool_calls": [
+            {
+              "name": "clarify",
+              "args": {
+                "question": "Bạn vui lòng cung cấp URL của bài viết mà bạn muốn đọc nội dung?",
+                "response_type": "text"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "clarify",
+              "args": {
+                "question": "Bạn vui lòng cung cấp URL của bài viết mà bạn muốn đọc nội dung?",
+                "response_type": "text"
+              },
+              "result": {
+                "tool": "ask_user",
+                "question": "Bạn vui lòng cung cấp URL của bài viết mà bạn muốn đọc nội dung?",
+                "response_type": "text",
+                "options": [],
+                "awaiting_user": true
+              }
+            }
+          ]
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn vui lòng cung cấp URL của bài viết mà bạn muốn đọc nội dung?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn vui lòng cung cấp URL của bài viết mà bạn muốn đọc nội dung?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    }
+  ]
+}

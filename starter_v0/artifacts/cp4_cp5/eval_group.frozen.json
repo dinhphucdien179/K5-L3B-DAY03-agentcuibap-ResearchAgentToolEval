@@ -1,0 +1,204 @@
+{
+  "dataset_id": "day03_v2_research_group",
+  "dataset_role": "group",
+  "description": "10 case nhóm thiết kế với hỗ trợ Codex: đúng 5 single turn và 5 multi turn, lấy giả thuyết kiểm tra từ lỗi thật v0–v4. Dùng bộ 11 tool sau CP3 v2. Đây là câu hỏi mới, không sao chép case base/extension; expect chỉ chứa các args quan trọng.",
+  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
+  "cases": [
+    {
+      "id": "G01_board_thermal_storage_month",
+      "phase": "B",
+      "suite": "group",
+      "query": "Lập bản đồ nguồn tin (research board) cho chủ đề 'thermal energy storage' trong tháng này, tối đa 4 kết quả. Mình muốn xem card theo domain và graph nguồn.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {"name": "research_board", "args": {"query": "thermal energy storage", "topic": "news", "timeframe": "month", "max_results": 4}}
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Yêu cầu bản đồ nguồn/card/graph phải route tới tool mới research_board, giữ chủ đề và các ràng buộc thời gian/số lượng thay vì dùng lookup đơn thuần.",
+        "origin_failure": "R13 cho thấy thiếu nguồn/nhánh xử lý khi request cần cấu trúc nghiên cứu rõ ràng; mở rộng kiểm tra sang pipeline board mới của CP3.",
+        "origin_cases": ["R13_parallel_web_and_tweets"],
+        "from_run": "runs/v4_B_base_groq_20261111T013837151492.json"
+      }
+    },
+    {
+      "id": "G02_web_riscv_exact_subject",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm tin trên web về RISC-V trong 24 giờ qua, giữ nguyên tên chủ đề này trong từ khóa tìm kiếm.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {"name": "lookup", "args": {"query": "RISC-V", "topic": "news", "timeframe": "day"}}
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Giữ nguyên acronym do user cung cấp, không mở rộng hoặc nối news/today; tách intent tin tức và 24 giờ thành topic/timeframe.",
+        "origin_failure": "R03 v4 mở rộng AI thành Artificial Intelligence dù user chỉ cung cấp acronym.",
+        "origin_cases": ["R03_web_news_routing"],
+        "from_run": "runs/v4_B_base_groq_20261111T013837151492.json"
+      }
+    },
+    {
+      "id": "G03_board_needs_subject",
+      "phase": "B",
+      "suite": "group",
+      "query": "Mình muốn một bảng nguồn nghiên cứu có card và graph, ưu tiên tin tuần này, lấy 6 kết quả nhé.",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {"name": "clarify", "args": {"response_type": "text"}}
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Board đã đủ format/thời gian/số lượng nhưng thiếu chủ đề; phải hỏi chủ đề, không tự chọn một chủ đề đang thịnh hành hoặc gọi tool với query rỗng.",
+        "origin_failure": "R10/R11 v0 tự điền account hoặc URL chưa được người dùng cung cấp; áp dụng lỗi bịa input thiếu sang tool mới.",
+        "origin_cases": ["R10_missing_handle", "R11_missing_url"],
+        "from_run": "runs/v0_B_base_groq_20261111T011139896815.json"
+      }
+    },
+    {
+      "id": "G04_unapproved_research_draft",
+      "phase": "B",
+      "suite": "group",
+      "query": "Gửi bản nháp 'Bản tin nghiên cứu tuần này: nhóm đang tổng hợp nguồn về lưu trữ năng lượng' vào kênh Telegram riêng của nhóm. Mình chưa duyệt chốt bản này.",
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {"name": "clarify", "args": {"response_type": "yes_no"}}
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Đã có nội dung nháp nhưng chưa có phê duyệt: hỏi xác nhận yes/no thay vì gửi hoặc hỏi content bằng text. Không kiểm tra gửi Telegram thật.",
+        "origin_failure": "R12 v3 hồi quy sang clarify response_type=text; case mới tách riêng thiếu consent khỏi thiếu draft.",
+        "origin_cases": ["R12_confirm_before_send"],
+        "from_run": "runs/v3_B_base_groq_20261111T013146721916.json"
+      }
+    },
+    {
+      "id": "G05_explain_board_overlap_no_search",
+      "phase": "B",
+      "suite": "group",
+      "query": "Chưa tìm nguồn lúc này. Giải thích ngắn overlap trong research board có nghĩa là gì và vì sao nó chưa chứng minh hai bài báo đồng ý về một claim.",
+      "failure_type": "unnecessary_tool",
+      "expect": {"no_tool": true, "behavior": "answer_without_tool"},
+      "metadata": {
+        "what_it_tests": "Câu hỏi giải thích chức năng/giới hạn của tool và yêu cầu không tìm kiếm: trả lời trực tiếp, không dùng board/lookup/policy để tạo hoạt động thừa. Nội dung trả lời cần review tay.",
+        "origin_failure": "R14 v0 dùng send để trả lời tác vụ không cần tool; mở rộng kiểm tra quyền gọi tool sang câu hỏi meta của tính năng mới.",
+        "origin_cases": ["R14_out_of_scope_coding"],
+        "from_run": "runs/v0_B_base_groq_20261111T011139896815.json"
+      }
+    },
+    {
+      "id": "G06_board_compare_correct_window_and_count",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Lập bảng nguồn tin cho chủ đề 'green hydrogen' trong tuần này, lấy tối đa 8 kết quả."},
+        {"role": "user", "content": "So sánh thêm một truy vấn 'ammonia storage'; cho mình thấy phần URL chung và riêng."},
+        {"role": "user", "content": "Đổi khoảng tìm thành tháng này và chỉ lấy 4 kết quả cho mỗi truy vấn; giữ nguyên hai chủ đề vừa nêu."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {"name": "research_board", "args": {"query": "green hydrogen", "compare_queries": ["ammonia storage"], "topic": "news", "timeframe": "month", "max_results": 4}}
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Gộp ngữ cảnh nhiều lượt của tool mới: giữ main query và compare_queries, thay timeframe/week→month và số kết quả 8→4 theo chỉnh sửa cuối.",
+        "origin_failure": "M02 v0 làm sai query khi carry-over timeframe; mở rộng cùng lỗi tách trường/ngữ cảnh sang các tham số so sánh mới.",
+        "origin_cases": ["M02_carryover_timeframe"],
+        "from_run": "runs/v0_B_base_groq_20261111T011139896815.json"
+      }
+    },
+    {
+      "id": "G07_cancel_social_keep_web",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tìm tin web và bài trên X về 'perovskite solar cells' trong tháng này."},
+        {"role": "user", "content": "Hủy phần X, mình chỉ cần tin tức từ các website."},
+        {"role": "user", "content": "Giới hạn 2 kết quả web, giữ chủ đề và khoảng tháng đã chọn."}
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {"name": "lookup", "args": {"query": "perovskite solar cells", "topic": "news", "timeframe": "month", "max_results": 2}}
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Latest intent hủy một nhánh nguồn: chỉ gọi lookup, không gọi social_search theo yêu cầu đã bị hủy; giữ chủ đề/tháng và áp count mới.",
+        "origin_failure": "R13 v3 không xử lý đúng các nhánh nguồn mà hỏi lựa chọn thừa; case mới kiểm tra nhánh đã bị hủy, tránh call thừa do bám lượt cũ.",
+        "origin_cases": ["R13_parallel_web_and_tweets"],
+        "from_run": "runs/v3_B_base_groq_20261111T013146721916.json"
+      }
+    },
+    {
+      "id": "G08_correct_reading_url",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Đọc trang https://docs.python.org/3/library/asyncio.html và tóm tắt ý chính cho việc nghiên cứu tài liệu."},
+        {"role": "user", "content": "Mình chọn nhầm link; đổi sang https://docs.python.org/3/library/pathlib.html."},
+        {"role": "user", "content": "Chỉ xử lý URL đã sửa ở lượt vừa rồi; đừng đọc trang cũ."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {"name": "fetch", "args": {"url": "https://docs.python.org/3/library/pathlib.html"}}
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Dùng URL được user sửa mới nhất, không tự suy đoán trang liên quan, không đọc cả hai link hay thay bằng web search.",
+        "origin_failure": "R11 v0 bịa URL thay vì dựa vào định danh nguồn user cung cấp; case mới kiểm tra nguồn đúng sau correction.",
+        "origin_cases": ["R11_missing_url"],
+        "from_run": "runs/v0_B_base_groq_20261111T011139896815.json"
+      }
+    },
+    {
+      "id": "G09_social_sort_and_count_carryover",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tìm 7 bài đăng gần đây trên X về 'quantum sensing'."},
+        {"role": "user", "content": "Chuyển sang các bài phổ biến nhất, không ưu tiên mới nhất nữa."},
+        {"role": "user", "content": "Giảm còn 2 bài, vẫn chủ đề cũ và vẫn sắp theo độ phổ biến."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {"name": "social_search", "args": {"query": "quantum sensing", "search_type": "Top", "limit": 2}}
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Giữ source X và query từ lượt đầu, cập nhật Latest→Top và limit 7→2; không quay về lookup hoặc reset các field khi user chỉ sửa số lượng.",
+        "origin_failure": "M02 v2 chọn sai social_search khi cần lookup trong ngữ cảnh; mở rộng kiểm tra source và field carry-over ở nhánh social được yêu cầu rõ ràng.",
+        "origin_cases": ["M02_carryover_timeframe"],
+        "from_run": "runs/v2_B_base_groq_20261111T012508887737.json"
+      }
+    },
+    {
+      "id": "G10_correct_explicit_account_and_limit",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Lấy 6 bài mới nhất của tài khoản @huggingface."},
+        {"role": "user", "content": "Chuyển sang @GoogleDeepMind, bỏ tài khoản ban đầu."},
+        {"role": "user", "content": "Chỉ cần 2 bài của tài khoản vừa đổi, không tìm cả hai tài khoản."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {"name": "timeline", "args": {"screenname": "GoogleDeepMind", "limit": 2}}
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Handle do user cung cấp phải bỏ @, dùng account mới nhất và count cuối; không chọn mặc định hoặc gọi cả account đã hủy.",
+        "origin_failure": "R10 v0 tự chọn account thay cho thông tin user chưa có; case mới kiểm tra tuân thủ handle cụ thể khi user thay đổi account.",
+        "origin_cases": ["R10_missing_handle"],
+        "from_run": "runs/v0_B_base_groq_20261111T011139896815.json"
+      }
+    }
+  ]
+}

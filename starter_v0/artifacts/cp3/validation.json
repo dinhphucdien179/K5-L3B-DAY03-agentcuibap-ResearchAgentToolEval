@@ -1,0 +1,50 @@
+{
+  "validated_at": "2026-11-11T01:55:03+07:00",
+  "phase": "CP3",
+  "tool": "research_board",
+  "evidence_type": "offline_unit_test_validation",
+  "artifact": {
+    "version": "cp3-research-board",
+    "artifact_version": "cp3-research-board+pa9d2bb5bce97+t06a806a8cdd2",
+    "prompt_hash": "a9d2bb5bce97f577739cbf5cb9e8093a7802b2093f452915a650c3ed68052a38",
+    "tools_hash": "06a806a8cdd2633a40436f8df03228126863df49f6db9b9a19d40939e0d550ce"
+  },
+  "tests": {
+    "passed": 118,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "contract": 60,
+    "existing_examples": 7,
+    "new_tool_cases": 35,
+    "existing_todo_cases_completed": 16
+  },
+  "four_deliverables_verified": true,
+  "declared_registered_tools": 11,
+  "original_ten_declarations_unchanged": true,
+  "cp2_prompt_unchanged": true,
+  "protected_files_checked": 95,
+  "protected_files_changed": [],
+  "source_sha256": {
+    "tools/research_board/tool.py": "db19af63806135dcb5ff2d12f58a1065dd920b97309580b78f599b375dddfe55",
+    "tools/research_board/TOOL.md": "9e53c282666576c24ff02ac4acf802598972418c8d0bd1178af50790bb4f8388",
+    "tools/__init__.py": "092b64a51425f3cc697fef123a40b8b856024f97a3e7f2d01420f340037feea5",
+    "tests/test_tools_todo.py": "8900ca44091756ea6b664abd6077dabce0ccdb2e9b9d098ffcb956513a473e58",
+    "artifacts/system_prompt.md": "a9d2bb5bce97f577739cbf5cb9e8093a7802b2093f452915a650c3ed68052a38",
+    "artifacts/tools.yaml": "06a806a8cdd2633a40436f8df03228126863df49f6db9b9a19d40939e0d550ce"
+  },
+  "live_api_calls": 0,
+  "live_model_calls": 0,
+  "model_routing_or_live_api_success_claimed": false,
+  "ui_implemented": false,
+  "notes": [
+    "CP2 snapshots, raw runs and version_log.csv remain immutable.",
+    "No base/group/extension eval run was added; no new accuracy is claimed.",
+    "118 tests used fake HTTP; mock sample is explicitly labeled and is not a live result."
+  ],
+  "local_document_links_valid": true,
+  "credential_scan": {
+    "files_scanned": 16,
+    "credential_value_hits": 0
+  }
+}

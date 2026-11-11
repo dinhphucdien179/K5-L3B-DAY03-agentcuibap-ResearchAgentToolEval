@@ -1,0 +1,66 @@
+{
+  "checked_at": "2026-11-11T02:38:06+07:00",
+  "method": "OfficialStreamlitAppTest, directtoolformactualTavilyHTTP; notbrowservisualQA",
+  "initial_render_no_api": true,
+  "initial_render_no_exceptions": true,
+  "live_form_no_exceptions": true,
+  "input": {
+    "query": "offshore wind storage",
+    "compare_queries": [
+      "offshore wind intermittency"
+    ],
+    "max_results": 2
+  },
+  "board_status": "ok",
+  "stats": {
+    "retrieved_count": 4,
+    "unique_item_count": 4,
+    "source_count": 4,
+    "duplicate_count": 0,
+    "discarded_count": 0
+  },
+  "coverage": {
+    "item_count": 4,
+    "domain_count": 4,
+    "items_with_title": 4,
+    "items_with_excerpt": 4,
+    "items_with_reported_date": 4,
+    "missing_excerpt_item_ids": [],
+    "missing_reported_date_item_ids": [],
+    "largest_domain_share": 0.25,
+    "domain_breakdown": [
+      {
+        "source_id": "s_f309367f8a8e",
+        "item_count": 1,
+        "share": 0.25
+      },
+      {
+        "source_id": "s_9b705f36367c",
+        "item_count": 1,
+        "share": 0.25
+      },
+      {
+        "source_id": "s_47a11909e7ce",
+        "item_count": 1,
+        "share": 0.25
+      },
+      {
+        "source_id": "s_da1cf203b60f",
+        "item_count": 1,
+        "share": 0.25
+      }
+    ]
+  },
+  "comparison_query_statuses": [
+    "ok",
+    "ok"
+  ],
+  "graph_nodes": 10,
+  "graph_edges": 12,
+  "transcript_file": "transcripts/ui_6a6f2c89b18a481f8554cd203222dc85.transcript.json",
+  "model_configured": "openai/gpt-oss-20b",
+  "model_called_for_direct_form": false,
+  "ui_policy_hash": "9f1ece38c8f5f754067e67fcc19cbff8c6f68059b9f104119c9d1bd4b5a89245",
+  "live_api": true,
+  "visual_browser_check": false
+}

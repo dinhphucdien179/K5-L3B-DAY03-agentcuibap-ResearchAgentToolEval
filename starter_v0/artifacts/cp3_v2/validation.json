@@ -1,0 +1,63 @@
+{
+  "validated_at": "2026-11-11T02:09:41+07:00",
+  "tool": "research_board",
+  "phase": "CP3 enhancement",
+  "evidence_type": "offline_unit_test_validation",
+  "artifact": {
+    "version": "cp3-research-board-v2",
+    "artifact_version": "cp3-research-board-v2+pa9d2bb5bce97+t869e5f2bbd6d",
+    "prompt_hash": "a9d2bb5bce97f577739cbf5cb9e8093a7802b2093f452915a650c3ed68052a38",
+    "tools_hash": "869e5f2bbd6de85257c5a93089ccaabef36d3f9b8145ed0332ee7b2acb5d7faa"
+  },
+  "tests": {
+    "passed": 147,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "contract": 60,
+    "existing_examples": 7,
+    "existing_todo_tools": 16,
+    "research_board": 64,
+    "new_cases_since_v1": 29,
+    "legacy_cases_retained": 118,
+    "legacy_test_functions_unchanged": 24
+  },
+  "protected_files_checked": 105,
+  "protected_files_changed": [],
+  "baseline_matches_prior_fingerprints": true,
+  "original_ten_declarations_unchanged": true,
+  "all_four_legacy_arguments_retained": true,
+  "request_budget": {
+    "default": 1,
+    "maximum": 3,
+    "automatic_retries": 0,
+    "stop_on_http": [
+      401,
+      403,
+      429
+    ]
+  },
+  "source_sha256": {
+    "tools/research_board/tool.py": "0991a409968c7f9b115864b9b1a408320a05a80a93544a3d48c7f95e4bc8bfe6",
+    "tools/research_board/TOOL.md": "d400eefbd460e6499992e226434ffbd0e296566ce224d034e13c3e1dce23b325",
+    "tests/test_tools_todo.py": "34355c959a47edd0bab918d95fc0d91686fbc0776507641a77cd501d311d054c",
+    "artifacts/tools.yaml": "869e5f2bbd6de85257c5a93089ccaabef36d3f9b8145ed0332ee7b2acb5d7faa",
+    "tools/__init__.py": "092b64a51425f3cc697fef123a40b8b856024f97a3e7f2d01420f340037feea5",
+    "artifacts/system_prompt.md": "a9d2bb5bce97f577739cbf5cb9e8093a7802b2093f452915a650c3ed68052a38"
+  },
+  "live_api_calls": 0,
+  "live_model_calls": 0,
+  "ui_implemented": false,
+  "metric_or_live_api_success_claimed": false,
+  "limits": [
+    "URL/domain overlap is retrieval overlap, not semantic agreement or truth.",
+    "Reported dates are metadata presence, not validated date/freshness.",
+    "Partial/failed-query coverage is unknown and remains null.",
+    "Source concentration counts domains, not independently verified publishers."
+  ],
+  "local_document_links_valid": true,
+  "credential_scan": {
+    "files_scanned": 25,
+    "credential_value_hits": 0
+  }
+}

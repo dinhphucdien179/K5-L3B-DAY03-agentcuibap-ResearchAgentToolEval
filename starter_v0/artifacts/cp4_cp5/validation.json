@@ -1,0 +1,83 @@
+{
+  "validated_at": "2026-11-11T02:53:45+07:00",
+  "scope": "CP4+CP5",
+  "protected_files_checked": 125,
+  "protected_files_changed": [],
+  "fixed_base_and_extension_unchanged": true,
+  "group_cases": {
+    "total": 10,
+    "single": 5,
+    "multi": 5,
+    "board_cases": 2,
+    "freeze_sha256": "b1c6293eaa5896c9e129395f566d2e9009aefda1f3b03dfa3ed11bad8a590bd1",
+    "unchanged_after_run": true
+  },
+  "group_summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 10,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "group_tool_errors_separate": [
+    {
+      "case": "G09_social_sort_and_count_carryover",
+      "tool": "social_search",
+      "error": "HTTPError"
+    },
+    {
+      "case": "G10_correct_explicit_account_and_limit",
+      "tool": "timeline",
+      "error": "HTTPError"
+    }
+  ],
+  "group_run_file": "runs/cp3-research-board-v2_B_group_groq_20261111T022506173733.json",
+  "group_model": "openai/gpt-oss-120b",
+  "ui_model": "openai/gpt-oss-20b",
+  "model_switch_reason": "Primary120bTPDquotaafterfirsttwoCLIturns; originalfailedattemptpreserved. No model switch in group eval.",
+  "tests": {
+    "passed": 184,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "legacy": 147,
+    "group_dataset": 12,
+    "ui_runtime_and_app": 25
+  },
+  "cli_live_transcript": "transcripts/cp3-research-board-v2_groq_20261111T023231396178.transcript.json",
+  "cli_live_turns": 4,
+  "confirmation_followup": "transcripts/cp5_confirmation_20b_20261111T024124787005.transcript.json",
+  "confirmation_yes_no_observed": true,
+  "delivery_performed": false,
+  "ui_live_evidence": "ui_chat_and_board_live.json",
+  "public_url": "https://connection-hawaii-narrative-mom.trycloudflare.com",
+  "public_http_health": 200,
+  "public_websocket_upgrade": 101,
+  "browser_visual_verified": false,
+  "browser_limit": "ComputerUse stopped because current browser URL could not be determined on Windows; no bypass attempted.",
+  "cross_team_feedback_claimed": false,
+  "ui_source_sha256": {
+    "app.py": "2eb8b1068e23d9891ed3410a7de4da225fa9b1e048d69e7f79b1b52d17ce9e56",
+    "requirements.txt": "3ce802104e5ab39f157ecabb189d5e939749093c82c41a7b4820b7b8c5a604fa",
+    "tests/test_eval_group.py": "41db2aa7194ce506fa44b650847c2d417c979d1a7e24075a5c4825906ab2bef5",
+    "tests/test_ui_runtime.py": "0fd4708f7648308ac192b8c8428341c35f9eb993972f8209e427f05a4a1c993a",
+    "ui/components.py": "5301077223d755af74ea559fab403b773f7cf04b25765db7b8406282298a2e02",
+    "ui/runtime.py": "90ee23d9f0be20f3df3cfc221ba7333560a8bf7c3d81a50788f802571215d4c2",
+    "ui/styles.css": "835ca70732deb311f1253d0504a9cd3aa3eab0613906f59dd59dfd17f0f5974d",
+    "ui/__init__.py": "3b2f231aa9f26ec65e1462319cd527374903eef0de4740c52a6c6eba7553349a"
+  },
+  "ui_runtime_policy_separate_from_eval": true,
+  "new_version_label_is_optimization_claim": false,
+  "local_document_links_valid": true,
+  "report_encoding_valid": true,
+  "prior_artifacts_runs_csv_unchanged": true,
+  "credential_scan": {
+    "files_scanned": 53,
+    "credential_value_hits": 0
+  }
+}

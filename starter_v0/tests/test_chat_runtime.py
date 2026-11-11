@@ -230,7 +230,7 @@ def test_group_eval_has_required_balance_and_valid_case_shapes():
             assert isinstance(call["name"], str) and call["name"]
             assert isinstance(call.get("args", {}), dict)
     tested_tools = {call["name"] for case in cases for call in case["expect"].get("tool_calls", [])}
-    assert {"investigate", "compare_research", "citation_audit", "deduplicate"} <= tested_tools
+    assert {"investigate", "compare_research", "citation_audit", "deduplicate", "research_board"} <= tested_tools
 
 
 def test_base_eval_remains_frozen():

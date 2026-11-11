@@ -1,0 +1,130 @@
+{
+  "version": "v1",
+  "run_file": "runs/v1_B_base_groq_20261111T012136469699.json",
+  "recorded_at": "2026-11-11T01:22:43+07:00",
+  "previous_version": "v0",
+  "summary_before": {
+    "total_cases": 20,
+    "measured_cases": 20,
+    "provider_error_cases": 0,
+    "passed_cases": 13,
+    "case_accuracy": 0.65,
+    "tool_routing_accuracy": 0.75,
+    "argument_accuracy": 0.65,
+    "multiturn_accuracy": 0.8333,
+    "failure_counts": {
+      "wrong_tool": 2,
+      "missing_info": 2,
+      "wrong_boundary": 1,
+      "out_of_scope": 1,
+      "wrong_arg_value": 1
+    },
+    "observed_mismatch_counts": {
+      "wrong_arg_value": 3,
+      "missing_tool_call": 3,
+      "unexpected_tool_call": 1
+    }
+  },
+  "summary_after": {
+    "total_cases": 20,
+    "measured_cases": 20,
+    "provider_error_cases": 0,
+    "passed_cases": 16,
+    "case_accuracy": 0.8,
+    "tool_routing_accuracy": 0.95,
+    "argument_accuracy": 0.8,
+    "multiturn_accuracy": 0.8333,
+    "failure_counts": {
+      "wrong_tool": 2,
+      "wrong_boundary": 1,
+      "wrong_arg_value": 1
+    },
+    "observed_mismatch_counts": {
+      "wrong_arg_value": 4
+    }
+  },
+  "improved": [
+    "R10_missing_handle",
+    "R11_missing_url",
+    "R14_out_of_scope_coding"
+  ],
+  "regressed": [],
+  "remaining_failures": [
+    {
+      "id": "R03_web_news_routing",
+      "mismatch": "wrong_arg_value",
+      "failures": [
+        "query: expected 'AI', got 'AI news today'"
+      ],
+      "calls": [
+        {
+          "name": "lookup",
+          "args": {
+            "max_results": 5,
+            "query": "AI news today",
+            "timeframe": "day",
+            "topic": "news"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R12_confirm_before_send",
+      "mismatch": "wrong_arg_value",
+      "failures": [
+        "response_type: expected 'yes_no', got 'text'"
+      ],
+      "calls": [
+        {
+          "name": "clarify",
+          "args": {
+            "question": "Bạn muốn đăng bản tin nào lên Telegram? Vui lòng cung cấp nội dung hoặc văn bản cần đăng.",
+            "response_type": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R13_parallel_web_and_tweets",
+      "mismatch": "wrong_arg_value",
+      "failures": [
+        "query: expected 'AI', got 'AI news today'",
+        "missing tool call social_search"
+      ],
+      "calls": [
+        {
+          "name": "lookup",
+          "args": {
+            "max_results": 5,
+            "query": "AI news today",
+            "timeframe": "day",
+            "topic": "news"
+          }
+        }
+      ]
+    },
+    {
+      "id": "M02_carryover_timeframe",
+      "mismatch": "wrong_arg_value",
+      "failures": [
+        "query: expected 'robotics', got 'robotics news today'"
+      ],
+      "calls": [
+        {
+          "name": "lookup",
+          "args": {
+            "max_results": 5,
+            "query": "robotics news today",
+            "timeframe": "day",
+            "topic": "news"
+          }
+        }
+      ]
+    }
+  ],
+  "tool_errors": {
+    "timeline:HTTPError": 5,
+    "social_search:HTTPError": 2
+  },
+  "protected_files_unchanged": true
+}

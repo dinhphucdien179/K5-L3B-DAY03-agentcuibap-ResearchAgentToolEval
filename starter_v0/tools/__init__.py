@@ -17,6 +17,7 @@ from .policy.tool import search_company_policy
 from .social_search.tool import search_tweets
 from .send.tool import send_telegram
 from .lookup.tool import web_search
+from .research_board.tool import build_research_board
 from .deduplicate.tool import deduplicate_sources
 from .investigate.tool import investigate_topic
 from .compare_research.tool import compare_research as compare_subjects
@@ -29,6 +30,7 @@ from .citation_audit.tool import audit_citations
 #   artifacts/tools.yaml  ->  this dict  ->  data/eval_base.json + data/eval_research_extension.json
 # Otherwise the eval raises "not declared in tools.yaml" or scores every call as a name mismatch.
 TOOL_FUNCTIONS = {
+    "research_board": build_research_board,
     "clarify": ask_user,
     "timeline": get_user_tweets,
     "social_search": search_tweets,
@@ -59,4 +61,3 @@ def to_openai_tools(declarations: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "parameters": item.get("parameters", {"type": "object", "properties": {}}),
         },
     } for item in declarations]
-

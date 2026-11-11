@@ -1,0 +1,18 @@
+{
+  "frozen_at": "2026-11-11T02:22:35+07:00",
+  "artifact": {
+    "version": "cp3-research-board-v2",
+    "artifact_version": "cp3-research-board-v2+pa9d2bb5bce97+t869e5f2bbd6d",
+    "prompt_hash": "a9d2bb5bce97f577739cbf5cb9e8093a7802b2093f452915a650c3ed68052a38",
+    "tools_hash": "869e5f2bbd6de85257c5a93089ccaabef36d3f9b8145ed0332ee7b2acb5d7faa"
+  },
+  "cases_sha256": "b1c6293eaa5896c9e129395f566d2e9009aefda1f3b03dfa3ed11bad8a590bd1",
+  "cases": 10,
+  "single": 5,
+  "multi": 5,
+  "new_tool_cases": 2,
+  "provider": "groq",
+  "model": "openai/gpt-oss-120b",
+  "case_revisions_after_run_allowed": false,
+  "version_label_note": "Existing CP3-v2 build, not a new optimization version or relabeled CP2 improvement."
+}

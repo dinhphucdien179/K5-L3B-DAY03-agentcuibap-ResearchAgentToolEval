@@ -1,0 +1,54 @@
+{
+  "validated_at": "2026-11-10T20:20:22.013155+00:00",
+  "scope": "CP5 additive pipeline/prompt inspector, not a prompt optimization or new eval score",
+  "tests": {
+    "tests": 195,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 195,
+    "new_pipeline_tests": 11
+  },
+  "protected_files_checked": 129,
+  "protected_files_changed": [],
+  "source_sha256": {
+    "app.py": "4516941b2f2b23f3767b8371ee7b62eac8ca794989b659f4cdf0662ec6f6336b",
+    "ui/__init__.py": "3b2f231aa9f26ec65e1462319cd527374903eef0de4740c52a6c6eba7553349a",
+    "ui/components.py": "5301077223d755af74ea559fab403b773f7cf04b25765db7b8406282298a2e02",
+    "ui/runtime.py": "1b3d8c0e4440169713676344d4953cfff3a18f2f366c853b40f3c9c44245faf8",
+    "ui/styles.css": "835ca70732deb311f1253d0504a9cd3aa3eab0613906f59dd59dfd17f0f5974d",
+    "ui/pipeline.py": "5c3c69004429842c020a5fef79939ba57d88b8b06032ef55a06fed1ae021ceb7",
+    "tests/test_ui_pipeline.py": "e8ef059987272b555c830f01d922b0adfed7a0bd9cfa7463d8bdc85e071409d3",
+    "requirements.txt": "3ce802104e5ab39f157ecabb189d5e939749093c82c41a7b4820b7b8c5a604fa"
+  },
+  "live_check": "live_pipeline_check.json",
+  "live_trace_status": "waiting_for_user",
+  "public_url": "https://connection-hawaii-narrative-mom.trycloudflare.com",
+  "http_checks": [
+    {
+      "url": "http://127.0.0.1:8501/_stcore/health",
+      "status": 200,
+      "healthy": true
+    },
+    {
+      "url": "https://connection-hawaii-narrative-mom.trycloudflare.com/_stcore/health",
+      "status": 200,
+      "healthy": true
+    }
+  ],
+  "browser_visual_verified": false,
+  "browser_limit": "Computer Use previously stopped because Windows browser URL could not be determined; no bypass attempted. Verification uses AppTest and health requests.",
+  "credential_scan": {
+    "files_scanned": 22,
+    "credential_value_hits": 0,
+    "files_with_hits": []
+  },
+  "eval_rerun": false,
+  "prior_evidence_preserved": true,
+  "api_keys_written": false,
+  "notes": [
+    "Snapshots are redacted adapter inputs, not network packet captures or private model reasoning.",
+    "Only new turns record model_requests; older turns remain unchanged.",
+    "Prompt and tool schemas currently loaded are shown separately from historical request snapshots."
+  ]
+}

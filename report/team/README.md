@@ -1,17 +1,8 @@
-# Báo cáo nhóm
+# Báo cáo
 
-Báo cáo chính nằm tại:
+- [Báo cáo nhóm](group_report.md): Phần A, Phần B và bằng chứng chung.
+- [Đinh Phúc Diên — 2A202603876](2A202603876_DinhPhucDien.md).
+- [Đào Văn Hiệp — 2A202603813](2A202603813_DaoVanHiep.md).
+- [Lê Nguyễn Anh Nhân — 2A202603838](2A202603838_LeNguyenAnhNhan.md).
 
-```text
-report/team/group_report.md
-```
-
-Mỗi thành viên tạo thêm một báo cáo cá nhân bằng cách copy `MSSV_HoTen.md` và đổi tên:
-
-```text
-report/team/MSSV_HoTen.md
-```
-
-Ví dụ: `report/team/20241234_NguyenVanAn.md`.
-
-Đóng góp và bằng chứng của từng thành viên cũng phải được khai báo trong [TEAM.md](../../TEAM.md).
+Phân công và thông tin nộp bài: [TEAM.md](../../TEAM.md).

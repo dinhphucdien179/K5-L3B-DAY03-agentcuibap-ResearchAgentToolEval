@@ -1,0 +1,28 @@
+{
+  "checked_at": "2026-11-11T02:42:45+07:00",
+  "method": "OfficialStreamlitAppTest actualGroq20bchat+Tavilyboardform; no GUI/browser screenshot",
+  "chat": {
+    "status": "waiting_for_user",
+    "calls": [
+      "clarify"
+    ],
+    "assistant_text": "Bạn vui lòng cung cấp đường dẫn (URL) của tài liệu cần đọc và tóm tắt?",
+    "model": "openai/gpt-oss-20b"
+  },
+  "board_status": "ok",
+  "board_stats": {
+    "retrieved_count": 1,
+    "unique_item_count": 1,
+    "source_count": 1,
+    "duplicate_count": 0,
+    "discarded_count": 0
+  },
+  "graph_render_no_exceptions": true,
+  "iframe_api": "st.iframe",
+  "transcript_file": "transcripts/ui_5081701108074068b13e46d924d9f7a3.transcript.json",
+  "turns": 2,
+  "timestamps_valid": true,
+  "live_provider": true,
+  "live_research_api": true,
+  "visual_browser_verification": false
+}

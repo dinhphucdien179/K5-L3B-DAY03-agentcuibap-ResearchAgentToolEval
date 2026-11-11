@@ -1,0 +1,9 @@
+[
+  {
+    "issue": "Streamlit rejected ornamentalstar avatar asimagepath afterfirstturn",
+    "detected_by": "OfficialAppTest afteractualresearch_board submission",
+    "symptom": "StreamlitAPIException: Failed to load the provided avatar value as an image.",
+    "fix": "Use built-in assistant avatar; add isolated transcript directory for renderregressiontest",
+    "status": "fixed; successful actualliveboardform rerun has no render exception; offline regressions added"
+  }
+]

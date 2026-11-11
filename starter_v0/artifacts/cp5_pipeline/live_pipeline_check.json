@@ -1,0 +1,30 @@
+{
+  "checked_at": "2026-11-10T20:17:35.708191+00:00",
+  "method": "Streamlit AppTest rendering actual app with live Groq API; no browser visual verification",
+  "provider": "groq",
+  "model": "openai/gpt-oss-20b",
+  "input": "Read the article for me. I have not provided a URL; ask me for the URL first.",
+  "status": "waiting_for_user",
+  "model_adapter_attempts": 1,
+  "adapter_statuses": [
+    "response_received"
+  ],
+  "tool_events": [
+    {
+      "tool": "clarify",
+      "awaiting_user": true
+    }
+  ],
+  "transcript": "transcripts/ui_268b888848414d538325c271f1d3050c.transcript.json",
+  "pipeline_tab_present": true,
+  "trace_selector_present": true,
+  "snapshot_prompt_matches_lab": true,
+  "schema_count": 11,
+  "render_exceptions": 0,
+  "message_roles": [
+    "system",
+    "system",
+    "user"
+  ],
+  "payload_sha256": "58dcdd694da8a4daf6c8cc37fb4913b68374b464f821eddc0b13351edb25aae0"
+}

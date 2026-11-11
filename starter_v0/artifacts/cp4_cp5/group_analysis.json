@@ -1,0 +1,80 @@
+{
+  "recorded_at": "2026-11-11T02:26:48+07:00",
+  "run_file": "runs/cp3-research-board-v2_B_group_groq_20261111T022506173733.json",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 10,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "cases_sha256_unchanged": true,
+  "scores_recomputed_from_unchanged_cases": true,
+  "attempts": 1,
+  "tool_errors": [
+    {
+      "case": "G09_social_sort_and_count_carryover",
+      "tool": "social_search",
+      "error": "HTTPError"
+    },
+    {
+      "case": "G10_correct_explicit_account_and_limit",
+      "tool": "timeline",
+      "error": "HTTPError"
+    }
+  ],
+  "research_board_execution": [
+    {
+      "case": "G01_board_thermal_storage_month",
+      "status": "ok",
+      "stats": {
+        "retrieved_count": 4,
+        "unique_item_count": 4,
+        "source_count": 4,
+        "duplicate_count": 0,
+        "discarded_count": 0
+      },
+      "query_reports": [
+        {
+          "query": "thermal energy storage",
+          "status": "ok",
+          "request_made": true
+        }
+      ]
+    },
+    {
+      "case": "G06_board_compare_correct_window_and_count",
+      "status": "ok",
+      "stats": {
+        "retrieved_count": 8,
+        "unique_item_count": 8,
+        "source_count": 8,
+        "duplicate_count": 0,
+        "discarded_count": 0
+      },
+      "query_reports": [
+        {
+          "query": "green hydrogen",
+          "status": "ok",
+          "request_made": true
+        },
+        {
+          "query": "ammonia storage",
+          "status": "ok",
+          "request_made": true
+        }
+      ]
+    }
+  ],
+  "manual_answer": "**Overlap trong research board**  \n\nKhi một research board được tạo, hệ thống thực hiện các truy vấn tìm kiếm (ví dụ: qua lookup, social_search, timeline…) và thu thập các URL/kết quả tương ứng. *Overlap* là phần **địa chỉ URL hoặc nguồn tin mà hai (hoặc nhiều) truy vấn khác nhau đều trả về**. Nói cách khác, nó đo lường mức độ “cắt nhau” của tập hợp các tài liệu mà các truy vấn khai thác.\n\n**Tại sao overlap không chứng minh hai bài báo đồng ý về một claim**  \n\n1. **Chỉ là cùng một nguồn, không cùng một nội dung**  \n   - Hai kết quả có thể trùng nhau vì chúng trích dẫn cùng một bài báo, nhưng mỗi bài báo có thể đưa ra các luận điểm, dữ liệu hoặc kết luận khác nhau. Overlap chỉ cho biết chúng cùng tham chiếu một tài liệu chung, không cho biết quan điểm của tài liệu đó.\n\n2. **Không phân tích nội dung chi tiết**  \n   - Research board không đọc, tóm tắt hay so sánh nội dung thực tế của các bài báo. Nó chỉ liệt kê các tiêu đề, URL và một tóm tắt ngắn (nếu có). Vì vậy, không có bằng chứng nào về việc các bài báo “đồng ý” hay “khác nhau” về một claim cụ thể.\n\n3. **Có thể là trùng nhau do thuật ngữ hoặc từ khóa**  \n   - Các truy vấn có thể dùng các từ khóa tương đồng, dẫn đến việc thu thập cùng một nhóm tài liệu mà không phản ánh quan điểm thực tế. Overlap chỉ phản ánh sự tương đồng trong **cách đặt câu hỏi** chứ không phải trong **kết luận**.\n\n4. **Không xét đến ngữ cảnh và mức độ chứng minh**  \n   - Một bài báo có thể đề cập tới một claim một cách phản biện, trong khi bài khác có thể ủng hộ. Overlap không phân biệt “đồng ý”, “phản bác” hay “đề cập” – nó chỉ cho biết chúng cùng xuất hiện trong tập hợp kết quả.\n\nVì những lý do trên, **overlap** là một chỉ số hữu ích để đánh giá mức độ “cắt nhau” của các bộ dữ liệu thu thập, nhưng **không thể được dùng làm bằng chứng cho việc hai bài báo đồng ý (hoặc không đồng ý) về một claim**. Để xác nhận sự đồng thuận, cần thực hiện phân tích nội dung chi tiết (đọc, trích dẫn, so sánh lập luận) của từng bài báo.",
+  "scope": "Known group-suite routing/argument measurement, not independent user testing or all tool integration health.",
+  "manual_review_notes": [
+    "G05 correctly distinguishes retrieval overlap from claim agreement, but its explanation incorrectly suggests the board internally calls lookup/social_search/timeline. The implementation directly calls Tavily. Automatic no_tool PASS does not grade this explanation.",
+    "G09 and G10 are routing/argument PASS but their RapidAPI calls return HTTPError; this is not successful social data retrieval."
+  ]
+}

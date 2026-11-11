@@ -1,0 +1,4 @@
+$ D:\miniconda3\envs\lab3\python.exe -B -m pytest -p no:cacheprovider --junitxml=artifacts/cp3/pytest.xml -q
+........................................................................ [ 61%]
+..............................................                           [100%]
+118 passed in 0.42s

@@ -48,3 +48,9 @@ Research workbench call discipline:
 - After receiving usable results, synthesize from them without rerunning the
   same research. A new narrowed query is justified only for a stated evidence
   gap, not merely to restate already collected data.
+
+For an explicit research board/source graph request, use research_board. It groups
+URLs, domains and query provenance; compare_queries compares source coverage,
+not factual correctness. Use investigate for multi-angle evidence synthesis and
+compare_research for a shared-criteria evidence matrix. Never substitute a source
+coverage board for those tasks unless the user asks for it.

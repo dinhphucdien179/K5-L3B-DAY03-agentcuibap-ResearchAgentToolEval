@@ -1,0 +1,95 @@
+{
+  "version": "v3",
+  "run_file": "runs/v3_B_base_groq_20261111T013146721916.json",
+  "recorded_at": "2026-11-11T01:31:54+07:00",
+  "previous_version": "v2",
+  "summary_before": {
+    "total_cases": 20,
+    "measured_cases": 20,
+    "provider_error_cases": 0,
+    "passed_cases": 17,
+    "case_accuracy": 0.85,
+    "tool_routing_accuracy": 0.9,
+    "argument_accuracy": 0.85,
+    "multiturn_accuracy": 0.8333,
+    "failure_counts": {
+      "wrong_tool": 2,
+      "wrong_arg_value": 1
+    },
+    "observed_mismatch_counts": {
+      "wrong_arg_value": 2,
+      "missing_tool_call": 1
+    }
+  },
+  "summary_after": {
+    "total_cases": 20,
+    "measured_cases": 20,
+    "provider_error_cases": 0,
+    "passed_cases": 18,
+    "case_accuracy": 0.9,
+    "tool_routing_accuracy": 0.95,
+    "argument_accuracy": 0.9,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {
+      "wrong_boundary": 1,
+      "wrong_tool": 1
+    },
+    "observed_mismatch_counts": {
+      "wrong_arg_value": 1,
+      "missing_tool_call": 1
+    }
+  },
+  "improved": [
+    "R03_web_news_routing",
+    "M02_carryover_timeframe"
+  ],
+  "regressed": [
+    "R12_confirm_before_send"
+  ],
+  "remaining_failures": [
+    {
+      "id": "R12_confirm_before_send",
+      "mismatch": "wrong_arg_value",
+      "failures": [
+        "response_type: expected 'yes_no', got 'text'"
+      ],
+      "calls": [
+        {
+          "name": "clarify",
+          "args": {
+            "question": "Bạn có thể cung cấp nội dung chính xác của bản tin mà bạn muốn đăng lên Telegram không?",
+            "response_type": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R13_parallel_web_and_tweets",
+      "mismatch": "missing_tool_call",
+      "failures": [
+        "missing tool call lookup",
+        "missing tool call social_search",
+        "extra tool call clarify"
+      ],
+      "calls": [
+        {
+          "name": "clarify",
+          "args": {
+            "options": [
+              "Tin AI trên web",
+              "Tweet về AI",
+              "Cả hai"
+            ],
+            "question": "Bạn muốn tôi tìm tin AI trên web hôm nay, tweet về AI, hay cả hai? Nếu muốn cả hai, tôi sẽ thực hiện hai tìm kiếm riêng biệt.",
+            "response_type": "choice"
+          }
+        }
+      ]
+    }
+  ],
+  "tool_errors": {
+    "timeline:HTTPError": 5,
+    "social_search:HTTPError": 2
+  },
+  "protected_files_unchanged": true
+}

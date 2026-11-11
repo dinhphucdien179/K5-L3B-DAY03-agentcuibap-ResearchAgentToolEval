@@ -30,6 +30,30 @@ cd starter_v0
 python scripts/preflight_provider.py --provider openrouter
 ```
 
+Groq (uses the existing `openai` SDK dependency):
+
+```bash
+# In starter_v0/.env; fill in your own key:
+GROQ_API_KEY=
+GROQ_MODEL=openai/gpt-oss-120b
+```
+
+After adding the key, run from `starter_v0/`:
+
+```bash
+python scripts/preflight_provider.py --provider groq
+python chat.py --provider groq --version v0
+python run_eval.py --provider groq --version v0 --suite base --eval-cases data/eval_base.json
+```
+
+`--model` overrides `GROQ_MODEL`. Optional `GROQ_BASE_URL` defaults to
+`https://api.groq.com/openai/v1`. Model availability and tool-use capabilities:
+[Groq models](https://console.groq.com/docs/models),
+[Groq tool use](https://console.groq.com/docs/tool-use/overview).
+The default GPT-OSS model does not support parallel tool use; for eval cases
+expecting multiple tool calls in one response, select a model that does, such as
+`qwen/qwen3.8-27b`, using `GROQ_MODEL` or `--model`.
+
 Local model (bonus Small Local Model Challenge, không cần API key):
 
 ```bash

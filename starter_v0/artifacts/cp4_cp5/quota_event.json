@@ -1,0 +1,17 @@
+{
+  "recorded_at": "2026-11-11T02:31:45+07:00",
+  "event": "CP5primarymodeldailyquota",
+  "transcript_file": "transcripts/cp3-research-board-v2_groq_20261111T022652587579.transcript.json",
+  "primary_model": "openai/gpt-oss-120b",
+  "statuses": [
+    "answered",
+    "waiting_for_user",
+    "provider_error",
+    "provider_error"
+  ],
+  "turns": 4,
+  "provider_errors": 2,
+  "response": "Keep failed attempt; CP4 frozen120bscoreunchanged; CP5only switches to Groq openai/gpt-oss-20b and records distinctmodel.",
+  "new_ui_model_env": "NEXUS_MODEL=openai/gpt-oss-20b",
+  "reason": "429 TPD quota on primarymodel; no provider/evaluator/prompt/schema edits."
+}

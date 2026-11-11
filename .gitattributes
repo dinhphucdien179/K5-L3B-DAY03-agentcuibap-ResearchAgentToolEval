@@ -1,0 +1,17 @@
+# Keep measured artifacts and hashed snapshots byte-for-byte across checkouts.
+# core.autocrlf must not change the SHA-256 recorded in experiment evidence.
+starter_v0/** whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+starter_v0/artifacts/** -text diff
+starter_v0/runs/** -text diff
+starter_v0/transcripts/** -text diff
+starter_v0/data/eval_group.json -text diff
+starter_v0/app.py -text diff
+starter_v0/ui/** -text diff
+starter_v0/requirements.txt -text diff
+starter_v0/tools/research_board/** -text diff
+starter_v0/tests/test_tools_todo.py -text diff
+starter_v0/tests/test_eval_group.py -text diff
+starter_v0/tests/test_ui_runtime.py -text diff
+starter_v0/tests/test_ui_pipeline.py -text diff
+# Preserve Markdown hard line breaks in recorded model responses.
+starter_v0/artifacts/cp2/manual_review.md whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

@@ -1,0 +1,44 @@
+{
+  "checked_at": "2026-11-11T02:33:24+07:00",
+  "public_url": "https://connection-hawaii-narrative-mom.trycloudflare.com",
+  "local_url": "http://127.0.0.1:8501",
+  "hosting": "Cloudflare Quick Tunnel to local Streamlit",
+  "ui_model": "openai/gpt-oss-20b",
+  "eval_model": "openai/gpt-oss-120b",
+  "temporary_link": true,
+  "requires_running_processes": true,
+  "streamlit_pid": 6844,
+  "tunnel_pid": 22460,
+  "http_checks": [
+    {
+      "url": "http://127.0.0.1:8501/_stcore/health",
+      "status": 200,
+      "healthy": true,
+      "body_type": "ok"
+    },
+    {
+      "url": "https://connection-hawaii-narrative-mom.trycloudflare.com/_stcore/health",
+      "status": 200,
+      "healthy": true,
+      "body_type": "ok"
+    },
+    {
+      "url": "https://connection-hawaii-narrative-mom.trycloudflare.com/",
+      "status": 200,
+      "healthy": true,
+      "body_type": "Streamlit HTML shell"
+    }
+  ],
+  "browser_visual_verification": "Blocked: Computer Use could not determine current browser URL on Windows; no bypass attempted.",
+  "raw_infrastructure_logs": "Outside repository; evidence copies remove IP literals.",
+  "user_cross_team_trial_observed": false,
+  "public_websocket_handshake": {
+    "status": 101,
+    "upgrade": "websocket",
+    "protocol": "streamlit",
+    "verified": true,
+    "method": "HTTPSwebsocketupgradehandshakeonly; nobrowserUIautomation"
+  },
+  "final_health_checked_at": "2026-11-11T02:53:45+07:00",
+  "final_health_status": 200
+}

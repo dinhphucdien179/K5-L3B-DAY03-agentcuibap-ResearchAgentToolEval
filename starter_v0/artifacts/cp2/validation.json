@@ -1,0 +1,140 @@
+{
+  "validated_at": "2026-11-11T01:40:17+07:00",
+  "protected_files_checked": 72,
+  "protected_files_changed": [],
+  "versions": [
+    {
+      "version": "v0",
+      "run_file": "runs/v0_B_base_groq_20261111T011139896815.json",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 13,
+        "case_accuracy": 0.65,
+        "tool_routing_accuracy": 0.75,
+        "argument_accuracy": 0.65,
+        "multiturn_accuracy": 0.8333,
+        "failure_counts": {
+          "wrong_tool": 2,
+          "missing_info": 2,
+          "wrong_boundary": 1,
+          "out_of_scope": 1,
+          "wrong_arg_value": 1
+        },
+        "observed_mismatch_counts": {
+          "wrong_arg_value": 3,
+          "missing_tool_call": 3,
+          "unexpected_tool_call": 1
+        }
+      },
+      "snapshot_hashes_match": true,
+      "scores_recomputed_from_original_cases": true
+    },
+    {
+      "version": "v1",
+      "run_file": "runs/v1_B_base_groq_20261111T012136469699.json",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 16,
+        "case_accuracy": 0.8,
+        "tool_routing_accuracy": 0.95,
+        "argument_accuracy": 0.8,
+        "multiturn_accuracy": 0.8333,
+        "failure_counts": {
+          "wrong_tool": 2,
+          "wrong_boundary": 1,
+          "wrong_arg_value": 1
+        },
+        "observed_mismatch_counts": {
+          "wrong_arg_value": 4
+        }
+      },
+      "snapshot_hashes_match": true,
+      "scores_recomputed_from_original_cases": true
+    },
+    {
+      "version": "v2",
+      "run_file": "runs/v2_B_base_groq_20261111T012508887737.json",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 17,
+        "case_accuracy": 0.85,
+        "tool_routing_accuracy": 0.9,
+        "argument_accuracy": 0.85,
+        "multiturn_accuracy": 0.8333,
+        "failure_counts": {
+          "wrong_tool": 2,
+          "wrong_arg_value": 1
+        },
+        "observed_mismatch_counts": {
+          "wrong_arg_value": 2,
+          "missing_tool_call": 1
+        }
+      },
+      "snapshot_hashes_match": true,
+      "scores_recomputed_from_original_cases": true
+    },
+    {
+      "version": "v3",
+      "run_file": "runs/v3_B_base_groq_20261111T013146721916.json",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 18,
+        "case_accuracy": 0.9,
+        "tool_routing_accuracy": 0.95,
+        "argument_accuracy": 0.9,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {
+          "wrong_boundary": 1,
+          "wrong_tool": 1
+        },
+        "observed_mismatch_counts": {
+          "wrong_arg_value": 1,
+          "missing_tool_call": 1
+        }
+      },
+      "snapshot_hashes_match": true,
+      "scores_recomputed_from_original_cases": true
+    },
+    {
+      "version": "v4",
+      "run_file": "runs/v4_B_base_groq_20261111T013837151492.json",
+      "summary": {
+        "total_cases": 20,
+        "measured_cases": 20,
+        "provider_error_cases": 0,
+        "passed_cases": 18,
+        "case_accuracy": 0.9,
+        "tool_routing_accuracy": 0.95,
+        "argument_accuracy": 0.9,
+        "multiturn_accuracy": 1.0,
+        "failure_counts": {
+          "wrong_tool": 2
+        },
+        "observed_mismatch_counts": {
+          "wrong_arg_value": 1,
+          "missing_tool_call": 1
+        }
+      },
+      "snapshot_hashes_match": true,
+      "scores_recomputed_from_original_cases": true
+    }
+  ],
+  "active_artifacts_match_v4": true,
+  "credential_scan": {
+    "files_scanned": 26,
+    "credential_value_hits": 0
+  },
+  "model_fixed": true,
+  "no_provider_errors": true,
+  "all_case_scores_recomputed_from_original_cases": true,
+  "tests": "62 passed, 17 existing CP3 TODO skipped; see final_pytest.txt",
+  "report_and_manual_review_links_valid": true
+}

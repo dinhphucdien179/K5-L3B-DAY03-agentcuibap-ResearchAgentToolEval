@@ -68,10 +68,9 @@ credentials trong URL; bỏ citation mẫu đã escape; nhận diện đúng fen
 Regression provenance trong [test_evidence_reporting.py](../tests/test_evidence_reporting.py)
 kiểm tra Git HEAD đã tối ưu vẫn truy được tools baseline bằng hash ancestor.
 
-## Đóng góp và trạng thái lưu bài
+## Trạng thái bằng chứng
 
-Đinh Phúc Diên cấu hình, vận hành và đã trực tiếp kiểm tra v4 theo bằng chứng
-cũ; Codex hỗ trợ code, test, phân tích và thực thi các vòng bổ sung CP2/CP3 này.
-Commit `ca5b1a6` của `dinhphucdien179` đã lưu phần bài trước. Các thay đổi bổ
-sung v5/v6, regression và báo cáo trong lượt này hiện **chưa commit/push**.
-Không tạo lại hoặc chỉnh sửa run cũ để nâng điểm.
+Các số liệu trên thuộc snapshot CP2/CP3 đã ghi trong run. Bản hiện tại có thêm
+research_board và dùng bộ eval nhóm 10 case bao phủ đủ 5 tool; xem [báo cáo nhóm](../../report/team/group_report.md).
+Kiểm tra code hiện tại: [validation.json](validation.json). Bằng chứng cũ không được
+sửa hoặc dùng thay cho điểm model của phiên bản hiện tại.
