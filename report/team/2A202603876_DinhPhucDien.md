@@ -2,62 +2,101 @@
 
 ## 1. Thông tin
 
-- Họ tên: **Đinh Phúc Diên**
-- MSSV: **2A202603876**
-- Email: 26ai.diendp@vinuni.edu.vn
-- GitHub: [dinhphucdien179](https://github.com/dinhphucdien179)
-- Nhóm: **agentcuibap**, lớp **L3B**
-- Repo: [K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval](https://github.com/dinhphucdien179/K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval), nhánh `main`.
+- Họ tên: **Đinh Phúc Diên**.
+- MSSV: **2A202603876**.
+- Email: 26ai.diendp@vinuni.edu.vn.
+- GitHub: [dinhphucdien179](https://github.com/dinhphucdien179).
+- Nhóm: **agentcuibap**, lớp **L3B**.
 
-## 2. Phần việc phụ trách
+## 2. Phần việc tôi phụ trách
 
-Em phụ trách CP2–CP5: tối ưu prompt/tool declaration, xây dựng tool và test với Codex hỗ trợ; trực tiếp cấu hình AI20k/API, chạy kiểm thử/eval v4 và thực hiện demo. Các vòng v5/v6 cùng kiểm tra 272 test được Codex chạy trong AI20k theo yêu cầu của em và có log riêng.
+Theo [phân công của nhóm](../../TEAM.md), tôi phụ trách cấu hình môi trường
+Conda `AI20k` và OpenRouter, phần tối ưu CP2 ở v5–v6, bốn tool nghiên cứu của
+CP3, cùng việc chạy kiểm tra và thực hiện phiên chat demo.
 
-## 3. Đóng góp cụ thể
+## 3. Nội dung thực hiện
 
-- Cấu hình Conda `AI20k`, OpenRouter và các API research; chạy preflight thành công với model `openai/gpt-4o-mini`.
-- Trực tiếp chạy `pytest`: **257 passed, 0 failed, 0 skipped**.
-- Trực tiếp chạy base eval v4: **19/20 case**, routing **100%**, argument **95%**, multi turn **100%**.
-- Trực tiếp chạy group eval v4: **9/10 case**, gồm đúng **5 single turn + 5 multi turn**.
-- Tự khởi chạy UI Streamlit, tạo link qua Cloudflare Tunnel và xác nhận mở được giao diện.
-- Thực hiện phiên `chat.py` **5 lượt**: nghiên cứu RAG, yêu cầu thiếu URL, bổ sung URL arXiv, yêu cầu gửi Telegram và hủy gửi.
-- Cung cấp log test/eval/chat và lỗi vận hành để đối chiếu, sửa hướng dẫn và cập nhật bằng chứng báo cáo.
-- CP2 bổ sung: dùng Codex sửa quy tắc xác nhận ở prompt v5 rồi sửa riêng clarify.description ở v6; giả thuyết được ghi trước khi đo. Bản v6 đạt base 20/20 và group 10/10.
-- CP3 bổ sung: dùng Codex sửa lỗi payload tìm kiếm, URL và citation; thêm 14 regression case. Kiểm tra cuối toàn suite: **272 passed, 0 failed, 0 skipped**.
+### Cấu hình và vận hành
+
+Tôi cấu hình provider OpenRouter với model `openai/gpt-4o-mini`, đặt API key
+trong `.env` và sử dụng môi trường `AI20k` để tránh cài nhầm dependency vào
+Python hệ thống. Tôi trực tiếp chạy preflight, pytest và hai bộ eval ở bản v4;
+kết quả terminal được lưu trong [bản kiểm tra thực tế](../../starter_v0/analysis/member_verification_20261110.md).
+
+Tôi cũng khởi chạy Streamlit và Cloudflare Tunnel để kiểm tra giao diện. Khi
+gặp lỗi đường dẫn `starter_v0/app.py` trong lúc đã đứng ở `starter_v0`, tôi xác
+định lại thư mục chạy và dùng đường dẫn `app.py`. Link tunnel chỉ dùng được
+khi ứng dụng và tiến trình tunnel còn hoạt động.
+
+### CP2 — Tối ưu v5 và v6
+
+Tôi tập trung vào ranh giới xác nhận gửi nội dung. Ở v5, phần thay đổi nằm
+trong system prompt: ưu tiên hỏi xác nhận khi người dùng yêu cầu gửi, kể cả
+khi bản nháp còn thiếu. Kết quả base vẫn là 19/20; case R12 vẫn chọn sai
+`response_type`, nên cách sửa này chưa giải quyết được lỗi.
+
+Ở v6, phần thay đổi được thu hẹp vào mô tả của `clarify` trong `tools.yaml`:
+làm rõ việc dùng `yes_no` cho yêu cầu gửi lần đầu. Kết quả lưu của vòng này
+là base 20/20 và group 10/10. Tôi phân biệt sự đồng ý tiếp tục quy trình với
+việc duyệt đúng nội dung cuối cùng; hai việc này không được xem là một.
+
+| Phiên bản OpenRouter | Base | Group | Ghi nhận |
+|---|---:|---:|---|
+| v4 | 19/20 | 9/10 | Lần tôi trực tiếp chạy và cung cấp log |
+| v5 | 19/20 | 10/10 | Sửa prompt, R12 vẫn chưa đạt |
+| v6 | 20/20 | 10/10 | Sửa mô tả clarify, R12 đạt |
+
+### CP3 — Bốn tool nghiên cứu
+
+Phần công cụ tôi phụ trách gồm:
+
+| Tool | Mục đích và điểm cần kiểm tra |
+|---|---|
+| `investigate` | Thu thập bằng chứng theo nhiều góc nhìn, giữ nguồn và báo phần thiếu dữ liệu |
+| `compare_research` | Lập ma trận bằng chứng theo cùng tiêu chí cho nhiều đối tượng |
+| `citation_audit` | Kiểm tra ID nguồn, URL và đoạn chưa có trích dẫn; không kết luận nội dung đúng sai |
+| `deduplicate` | Gộp URL trùng do tracking, giữ nguồn đầu và tham số có ý nghĩa |
+
+Các tool có implementation, `TOOL.md`, registry và schema tương ứng. Phần
+kiểm thử bao phủ đầu vào không hợp lệ, thiếu key, lỗi truy vấn từng phần,
+URL và citation. Các regression được giữ để tránh sửa một lỗi rồi làm mất
+nguồn đã thu thập hoặc gộp nhầm hai URL khác nội dung.
+
+### Kiểm tra và chat demo
+
+Trong phiên `chat.py` tôi trực tiếp thực hiện 5 lượt: nghiên cứu RAG, yêu cầu
+đọc bài khi chưa có URL, bổ sung URL arXiv, yêu cầu gửi một bản tin và hủy gửi.
+Phiên này không gọi `send`. Lượt nghiên cứu đầu gọi `investigate` hai lần;
+tôi giữ nguyên transcript để phản ánh hành vi thực tế.
 
 ## 4. Bằng chứng
 
-| Nội dung | File |
-|---|---|
-| Kiểm tra link demo public | [ui_connectivity_current.json](../../starter_v0/analysis/ui_connectivity_current.json): trang/health 200, WebSocket 101 |
-| Kết quả tự chạy test và preflight | [member_verification_20261110.md](../../starter_v0/analysis/member_verification_20261110.md) |
-| Base eval v4 | [v4_B_base_openrouter_20261110T213840374908.json](../../starter_v0/runs/v4_B_base_openrouter_20261110T213840374908.json) |
-| Group eval v4 | [v4_B_group_openrouter_20261110T213941166369.json](../../starter_v0/runs/v4_B_group_openrouter_20261110T213941166369.json) |
-| Chat tương tác 5 lượt | [v4_openrouter_20261110T214232005322.transcript.json](../../starter_v0/transcripts/v4_openrouter_20261110T214232005322.transcript.json) |
-| CP2–CP3 bổ sung | [cp2_cp3_summary.md](../../starter_v0/analysis/cp2_cp3_summary.md) |
-| Base v6 | [v6_B_base_openrouter_20261110T234242756239.json](../../starter_v0/runs/v6_B_base_openrouter_20261110T234242756239.json) |
-| Group v6 | [v6_B_group_openrouter_20261110T234157985676.json](../../starter_v0/runs/v6_B_group_openrouter_20261110T234157985676.json) |
-| Test mới nhất | [pytest_final.txt](../../starter_v0/analysis/pytest_final.txt), [pytest.xml](../../starter_v0/analysis/pytest.xml): 272 pass |
-| Lịch sử cải tiến và hash | [version_log.csv](../../starter_v0/artifacts/version_log.csv) |
-| Tổng hợp và hạn chế | [group_report.md](group_report.md) |
-| Cách chạy bằng AI20k | [RUNBOOK.md](../../starter_v0/RUNBOOK.md) |
+- [Preflight, pytest và eval tôi trực tiếp chạy](../../starter_v0/analysis/member_verification_20261110.md): 257 test pass ở bản v4.
+- [Giả thuyết v5](../../starter_v0/artifacts/versions/v5/hypothesis.json) và [v6](../../starter_v0/artifacts/versions/v6/hypothesis.json).
+- [Base v6](../../starter_v0/runs/v6_B_base_openrouter_20261110T234242756239.json) và [group v6](../../starter_v0/runs/v6_B_group_openrouter_20261110T234157985676.json).
+- [Unit test tool](../../starter_v0/tests/test_tools_todo.py) và [regression CP3](../../starter_v0/tests/test_cp3_regressions.py).
+- [Transcript tôi trực tiếp chạy](../../starter_v0/transcripts/v4_openrouter_20261110T214232005322.transcript.json).
+- [Kiểm tra giao diện và tunnel](../../starter_v0/analysis/ui_connectivity_current.json).
 
+## 5. Cách tôi đối chiếu kết quả
 
-## 5. AI/công cụ đã dùng và cách kiểm tra
+Tôi đối chiếu tool được gọi và arguments trong run JSON, không chỉ nhìn câu
+trả lời cuối. Tôi kiểm tra riêng trạng thái API, số case được đo và lỗi provider.
+Với tool, tôi phân biệt unit test của implementation với eval khả năng model
+chọn tool; một trong hai đạt không bảo đảm phần còn lại đạt.
 
-Em dùng **AI** để hỗ trợ triển khai bốn tool `investigate`, `compare_research`,
-`citation_audit`, `deduplicate`; viết test; sửa runtime xác nhận gửi; xây dựng UI
-và tổng hợp báo cáo từ log. AI cũng hỗ trợ giải thích lỗi đường dẫn và tunnel.
+Kết quả kiểm tra chung hiện tại là **407 test pass, 0 fail, 0 skip**, được ghi
+trong [validation.json](../../starter_v0/analysis/validation.json). Đây là kết
+quả của bản chung, không phải số test của riêng bốn tool tôi phụ trách. Các
+điểm v6 ở trên thuộc snapshot v6; bản v7 chưa có run model để đối chiếu.
 
-Em kiểm tra kết quả bằng cách chạy pytest trong đúng AI20k, gọi provider thật,
-chạy hai bộ eval và thực hiện chat tương tác. Với các case FAIL, đối chiếu tool
-calls và args trong run JSON thay vì chỉ xem câu trả lời. Không sửa bộ eval gốc,
-không ghi kết quả Telegram gửi thật hoặc model local khi chưa có run chứng minh.
+## 6. Tự đánh giá và phần cần cải thiện
 
-## 6. Tự đánh giá dựa trên kết quả thực tế
+Phần tôi tập trung giải quyết là môi trường chạy, ranh giới xác nhận gửi và
+các tool nghiên cứu có nguồn để đối chiếu. Qua các lần kiểm tra, tôi rút ra
+rằng cần thu hẹp từng thay đổi và đo lại thay vì xem một quy tắc trong prompt
+là đã đủ bảo đảm hành vi.
 
-Ở lần em trực tiếp chạy bản v4: 257 test pass, base đạt 95%, group đạt 90%; phiên chat xử lý được thiếu URL, bổ sung thông tin, xin xác nhận rồi hủy gửi. UI đã được em mở và xác nhận chạy được.
-
-CP2–CP3 bổ sung với Codex hỗ trợ đã có kết quả v6: base **20/20**, group **10/10** và **272 test pass**. R12 và G01 đều pass trong run mới. Một số API mạng xã hội vẫn trả lỗi HTTP; độ liên quan và độ đúng của nội dung cần review riêng. Điểm routing cao chưa chứng minh nội dung luôn đúng hoặc API luôn hoạt động. Telegram gửi thật, thử model local và đánh giá bởi người ngoài nhóm chưa có bằng chứng hoàn thành.
-
-Ưu tiên tiếp theo là đo độ ổn định qua nhiều run và bổ sung kiểm tra chất lượng nguồn. Các log FAIL cũ và giới hạn của phép đo được giữ nguyên trong báo cáo.
+Điểm cần cải thiện là kiểm tra chất lượng nguồn và độ ổn định của câu trả lời.
+Một số API mạng xã hội vẫn trả lỗi HTTP dù routing đúng. Tôi chưa có bằng
+chứng gửi Telegram thật, chạy model local hoặc thử nghiệm với người ngoài nhóm.
