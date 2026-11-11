@@ -11,11 +11,9 @@
 |---|---|---|---|---|
 | Đinh Phúc Diên | 2A202603876 | 26ai.diendp@vinuni.edu.vn | [dinhphucdien179](https://github.com/dinhphucdien179) | Cấu hình AI20k/OpenRouter, CP2 v5–v6, bốn tool nghiên cứu, trực tiếp chạy kiểm tra và chat demo; [báo cáo](report/team/2A202603876_DinhPhucDien.md) |
 | Đào Văn Hiệp | 2A202603813 | 26ai.hiepdv3@vinuni.edu.vn | [daohiep2903](https://github.com/daohiep2903) | CP2: tối ưu prompt/tool declaration và phân tích v1–v3; [báo cáo](report/team/2A202603813_DaoVanHiep.md) |
-| Lê Nguyễn Anh Nhân | 2A202603838 | Chưa cung cấp | Chưa cung cấp | Eval nhóm, UI/pipeline, transcript và tổng hợp báo cáo; [báo cáo](report/team/2A202603838_LeNguyenAnhNhan.md) |
+| Lê Nguyễn Anh Nhân | 2A202603838 | 26ai.nhanlna@vinuni.edu.vn | [ying684](https://github.com/ying684) | Eval nhóm, UI/pipeline, transcript và tổng hợp báo cáo; [báo cáo](report/team/2A202603838_LeNguyenAnhNhan.md) |
 
-Codex hỗ trợ triển khai, viết test, đọc log và biên soạn tài liệu theo yêu cầu nhóm.
-Phần tự kiểm tra, cách dùng AI và tự đánh giá của từng người nằm trong báo cáo cá nhân.
-Không dùng bảng phân công để thay thế bằng chứng thực hiện hoặc commit.
+
 
 ## Bằng chứng chung
 
