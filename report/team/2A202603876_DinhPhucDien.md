@@ -4,7 +4,7 @@
 
 - Họ tên: **Đinh Phúc Diên**
 - MSSV: **2A202603876**
-- Email: dinhphucdien179@gmail.com
+- Email: 26ai.diendp@vinuni.edu.vn
 - GitHub: [dinhphucdien179](https://github.com/dinhphucdien179)
 - Nhóm: **agentcuibap**, lớp **L3B**
 - Repo: [K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval](https://github.com/dinhphucdien179/K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval), nhánh `main`.
