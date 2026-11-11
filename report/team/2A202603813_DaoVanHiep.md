@@ -1,4 +1,4 @@
-# Báo cáo cá nhân — CP2: Tối ưu research agent
+# Báo cáo cá nhân — CP3: Xây dựng và kiểm thử tool research_board
 
 ## 1. Thông tin thành viên
 
@@ -9,43 +9,57 @@
 
 ## 2. Phần việc phụ trách
 
-Phụ trách CP2: tối ưu system prompt và tool declaration qua ba vòng v1–v3, so sánh với baseline v0 trên bộ base eval gồm 20 case. Provider/model dùng là OpenRouter / `openai/gpt-4o-mini`.
+Trong nhóm agentcuibap (K5–L3B), tôi được phân công phụ trách CP3:
+xây dựng và kiểm thử `research_board`, công cụ giúp agent tổ chức kết quả
+tìm kiếm thành bản đồ nguồn để người dùng xem và so sánh.
 
-Phân công cá nhân chỉ gồm CP2, không gồm CP3, CP4 hoặc CP5. Codex hỗ trợ triển khai và kiểm tra; các mục tự kiểm tra/tự đánh giá bên dưới cần thành viên xác nhận theo trải nghiệm thực tế.
+Phạm vi được giao gồm định nghĩa đầu vào/đầu ra của tool, chuẩn hóa và
+gộp URL trùng, nhóm nguồn theo domain, tạo đồ thị, theo dõi kết quả theo
+từng truy vấn, bổ sung unit test và hoàn thiện `TOOL.md` cùng mục B5a
+trong báo cáo nhóm. Phần review chéo với Nhân tập trung vào cách UI hiển
+thị lỗi của tool và giải thích giới hạn của dữ liệu.
 
-## 3. Đóng góp cụ thể
+## 3. Đóng góp cụ thể và kết quả
 
-Các sản phẩm CP2 đã được tạo với sự hỗ trợ của Codex:
+- `research_board` dùng Tavily để tìm nguồn, chuẩn hóa URL, gộp kết quả
+  trùng, nhóm theo domain và tạo đồ thị nguồn.
+- Bản mở rộng hỗ trợ tối đa 3 truy vấn: 1 truy vấn chính và tối đa 2 truy
+  vấn so sánh. Tool ghi nhận mỗi URL xuất hiện ở truy vấn nào và thống kê
+  mức độ đầy đủ của thông tin nguồn.
+- Các test bao phủ luồng thành công, đầu vào không hợp lệ, thiếu API key,
+  timeout, HTTP 429, lỗi một phần và giới hạn số request. HTTP được mô
+  phỏng trong unit test để kiểm tra hành vi của code mà không gọi API thật.
 
-- V1 sửa `system_prompt.md`: thay chỉ dẫn đoán/làm ngay bằng hỏi lại khi thiếu thông tin, giới hạn phạm vi và yêu cầu xác nhận trước khi gửi.
-- V2 sửa description của các tool: phân biệt tìm web, bài của tài khoản và thảo luận xã hội; giữ nguồn tìm kiếm khi người dùng đổi chủ đề.
-- V3 sửa description của arguments: handle không có `@`, `Top/Latest`, `topic/timeframe`, `response_type` và điều kiện `confirmed=true`.
-- Lưu snapshot, run JSON và version log để đối chiếu thay đổi với số đo thật.
+| Chỉ số | Kết quả đối chiếu báo cáo nhóm |
+|---|---:|
+| Unit test cho riêng `research_board` | 64 case: 35 ban đầu + 29 bổ sung |
+| Toàn bộ bộ test tại thời điểm chốt CP3 v2 | 147 passed, 0 failed, 0 skipped |
+| Eval nhóm ở CP4 | 10/10 PASS, trong đó 2 case kiểm tra agent chọn `research_board` |
+| Toàn bộ bộ test sau khi nhóm tích hợp pipeline CP5 | 195 passed, 0 failed, 0 skipped |
 
-| Version | Case đạt | Case accuracy | Routing accuracy |
-|---|---:|---:|---:|
-| v0 | 13/20 | 65% | 75% |
-| v1 | 15/20 | 75% | 95% |
-| v2 | 18/20 | 90% | 100% |
-| v3 | 18/20 | 90% | 100% |
+Kết quả CP4 và CP5 là số liệu tích hợp của cả nhóm. Riêng CP4 dùng
+Groq / `openai/gpt-oss-120b`; 10/10 là kết quả trên bộ eval nhóm,
+khác với bộ 20 case base của CP2.
 
-V3 sửa lỗi `response_type` ở R12 và thiếu `topic=news` ở M02 của v2, nhưng phát sinh lỗi query ở R03/R13. Vì vậy không kết luận v3 tốt hơn v2 về tổng accuracy.
+## 4. Bằng chứng và cách kiểm tra
 
-## 4. Bằng chứng
-
-- Phân tích và liên kết tới từng run: [CP2_REPORT.md](../../starter_v0/analysis/CP2_REPORT.md).
-- Hash, giả thuyết và metric từng vòng: [version_log.csv](../../starter_v0/artifacts/version_log.csv).
-- Artifact đang dùng: [system_prompt.md](../../starter_v0/artifacts/system_prompt.md), [tools.yaml](../../starter_v0/artifacts/tools.yaml). Snapshot tương ứng nằm trong `starter_v0/artifacts/versions/v0` đến `v3`.
-- Kiểm tra do Codex thực hiện: hash snapshot khớp run; mỗi run đo đủ 20/20 case, không có provider error; contract test 55 passed sau mỗi vòng; toàn suite cuối 62 passed, 17 skipped thuộc TODO CP3.
-- AI/công cụ đã dùng: Codex hỗ trợ sửa artifact, chạy eval/test, phân tích log và soạn báo cáo. Không có commit/PR được tạo cho phần việc này.
-- Cách tôi tự kiểm tra kết quả: [Điền việc đã thực sự làm, ví dụ đọc `actual_tool_calls` và `failures` của R12/M02/R03/R13, đối chiếu metric và giải thích nguyên nhân.]
+- [Đặc tả tool](../../starter_v0/tools/research_board/TOOL.md)
+- [Mã nguồn tool](../../starter_v0/tools/research_board/tool.py)
+- [Unit test](../../starter_v0/tests/test_tools_todo.py)
+- [Kết quả pytest tại mốc CP3 v2](../../starter_v0/artifacts/cp3_v2/pytest.txt)
+- [Báo cáo nhóm](group_report.md): mục B5a ghi bằng chứng của tool;
+  mục 6 ghi phân công cá nhân.
 
 ## 5. Tự đánh giá
 
-### Phạm vi đóng góp
+Unit test và eval trả lời hai câu hỏi khác nhau. Unit test kiểm tra tool
+xử lý dữ liệu đúng sau khi nhận tham số; eval kiểm tra agent có chọn
+đúng tool và truyền đúng tham số hay không. Ví dụ, agent có thể gọi đúng
+`research_board`, nhưng code vẫn có thể đếm cùng một nguồn hai lần nếu
+URL chỉ khác tham số theo dõi hoặc fragment.
 
-CP3, CP4 và CP5 là sản phẩm khác của nhóm, không tính vào đóng góp cá nhân trong báo cáo này. Codex hỗ trợ chỉnh artifact CP2, chạy eval/test và soạn bằng chứng; việc tự kiểm tra cần được thành viên xác nhận trung thực.
-
-Kết quả kỹ thuật cho thấy accuracy tăng 25 điểm phần trăm so với baseline, còn routing tăng 25 điểm phần trăm. V3 vẫn còn hai case sai arguments; query gần nghĩa bị grader chấm sai do so khớp chính xác. Một run cho mỗi version chưa đủ đánh giá độ ổn định hoặc khả năng tổng quát.
-
-Điểm cần hiểu khi trình bày: system prompt quy định hành vi chung; tool description giúp chọn đúng công cụ; parameter description giúp truyền đúng arguments. Chỉ đổi một giả thuyết mỗi vòng giúp giải thích kết quả đo, nhưng chưa chứng minh quan hệ nhân quả qua một lần chạy.
+Một giới hạn của tool là URL xuất hiện trong nhiều truy vấn chỉ cho thấy
+các truy vấn tìm được cùng một nguồn. Điều đó chưa chứng minh các nguồn
+đồng ý với nhau, độc lập với nhau hay thông tin trong nguồn đã được xác
+minh. Khi đọc kết quả, cần phân biệt truy vấn bị lỗi với truy vấn chạy
+thành công nhưng không tìm thấy nguồn.
