@@ -42,11 +42,10 @@ Em phụ trách CP2–CP5: tối ưu prompt/tool declaration, xây dựng tool v
 | Tổng hợp và hạn chế | [group_report.md](group_report.md) |
 | Cách chạy bằng AI20k | [RUNBOOK.md](../../starter_v0/RUNBOOK.md) |
 
-Commit kỹ thuật đã có: [ca5b1a6](https://github.com/dinhphucdien179/K5-L3B-DAY03-agentcuibap-ResearchAgentToolEval/commit/ca5b1a62e0d5419a1c2e1e853d14bf4e506939af), tác giả `dinhphucdien179`, nội dung `DinhPhucDien`. Các bổ sung CP2–CP3 v5/v6 và regression mới chưa được commit/push.
 
 ## 5. AI/công cụ đã dùng và cách kiểm tra
 
-Em dùng **Codex** để hỗ trợ triển khai bốn tool `investigate`, `compare_research`,
+Em dùng **AI** để hỗ trợ triển khai bốn tool `investigate`, `compare_research`,
 `citation_audit`, `deduplicate`; viết test; sửa runtime xác nhận gửi; xây dựng UI
 và tổng hợp báo cáo từ log. AI cũng hỗ trợ giải thích lỗi đường dẫn và tunnel.
 
