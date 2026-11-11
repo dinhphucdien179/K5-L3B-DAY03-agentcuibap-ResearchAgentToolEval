@@ -138,12 +138,12 @@ Bộ Groq được đóng băng tại [eval_group.frozen.json](../../starter_v0/
 
 ### B4. Live chat và UI
 
-[Phiên Đinh Phúc Diên trực tiếp chạy](../../starter_v0/transcripts/v4_openrouter_20261110T214232005322.transcript.json)
+[Đinh Phúc Diên trực tiếp chạy](../../starter_v0/transcripts/v4_openrouter_20261110T214232005322.transcript.json)
 có 5 lượt: nghiên cứu RAG → hỏi URL còn thiếu → fetch đúng URL arXiv → hỏi duyệt
 bản nháp Telegram → hủy gửi. Lượt đầu gọi investigate hai lần; transcript giữ
 nguyên để thể hiện lỗi lặp thực tế. Phiên này không gửi Telegram.
 
-[Phiên Groq 20b](../../starter_v0/transcripts/cp3-research-board-v2_groq_20261111T023231396178.transcript.json)
+[Groq 20b](../../starter_v0/transcripts/cp3-research-board-v2_groq_20261111T023231396178.transcript.json)
 là prompt synthetic qua API thật: research_board/format → hỏi URL → fetch → hỏi
 đích gửi; [phiên tiếp nối](../../starter_v0/transcripts/cp5_confirmation_20b_20261111T024124787005.transcript.json)
 hỏi xác nhận nhưng chưa gửi. Lượt 120b bị quota 429 được giữ nguyên, không tính
@@ -199,8 +199,3 @@ browser/mobile và thử với người ngoài nhóm. Theo dõi lỗi API riêng
 tránh chạy nhiều lần rồi chỉ chọn điểm cao. Nguồn chỉ được xem là bằng chứng trong
 phạm vi excerpt/URL đã quan sát, không phải kết luận đã kiểm chứng.
 
-## 8. Tham khảo
-
-[Yêu cầu bài](../../README.md), [quy tắc](../../RULES.md), [rubric](../../RUBRIC.md),
-[tool contract](../../starter_v0/tools/README.md), [runbook](../../starter_v0/RUNBOOK.md),
-[version log](../../starter_v0/artifacts/version_log.csv).
