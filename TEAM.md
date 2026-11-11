@@ -13,7 +13,7 @@
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 |---:|---|---|---|---|---|
-| 1 | Đinh Phúc Diên | 2A202603876 | dinhphucdien179@gmail.com | [dinhphucdien179](https://github.com/dinhphucdien179) | Cấu hình, vận hành, kiểm thử và hoàn thiện bài với AI hỗ trợ |
+| 1 | Đinh Phúc Diên | 2A202603876 | 26ai.diendp@vinuni.edu.vn | [dinhphucdien179](https://github.com/dinhphucdien179) | Cấu hình, vận hành, kiểm thử và hoàn thiện bài với AI hỗ trợ |
 | 2 | Đào Văn Hiệp | 2A202603813 | 26ai.hiepdv3@vinuni.edu.vn | https://github.com/daohiep2903 | CP2 |
 ## Đinh Phúc Diên — 2A202603876
 
